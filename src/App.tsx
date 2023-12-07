@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
+import MainPage from './pages/main/MainPage';
 
 function App() {
   return (
     <div className="App">
-      <h1>Skypro Avito</h1>
+      <MainPage />
     </div>
   );
 }
