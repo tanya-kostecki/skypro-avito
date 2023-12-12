@@ -9,7 +9,7 @@ const ProfilePage = () => {
     <div>
       <Header namePage={PROFILE_PAGE}/>
       <Navigation namePage={PROFILE_PAGE} />
-      <ProfileInfo />
+      <ProfileInfo namePage={PROFILE_PAGE}/>
     </div>
   )
 }

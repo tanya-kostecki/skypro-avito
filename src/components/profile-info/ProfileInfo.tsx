@@ -4,13 +4,21 @@ import * as S from './profile-info.styles';
 import { ProductsTitle, ProductsMain } from '../products/products.styles';
 import { myProducts } from '../../constants/myProductsConst';
 import ProductItem from '../products/ProductItem';
+import { PROFILE_PAGE } from '../../constants/pagesConst';
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ namePage }: Page) => {
   return (
     <Container>
-      <S.ProfileIntoTitle>Здравствуйте, Антон!</S.ProfileIntoTitle>
+      {namePage === PROFILE_PAGE ? (
+        <S.ProfileIntoTitle>Здравствуйте, Антон!</S.ProfileIntoTitle>
+      ) : (
+        <S.ProfileIntoTitle>Профиль продавца</S.ProfileIntoTitle>
+      )}
       <S.ProfileSettings>
-        <S.ProfileSettingsTitle>Настройки профиля</S.ProfileSettingsTitle>
+        {namePage === PROFILE_PAGE ? (
+          <S.ProfileSettingsTitle>Настройки профиля</S.ProfileSettingsTitle>
+        ) : null}
+
         <S.ProfileSettingsBlock>
           <S.AvatarBlock>
             <svg
@@ -22,33 +30,51 @@ const ProfileInfo = () => {
             >
               <circle cx="85" cy="85" r="85" fill="#F0F0F0" />
             </svg>
-            <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
+            {namePage === PROFILE_PAGE ? (
+              <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
+            ) : null}
           </S.AvatarBlock>
-          <S.InputBlock>
-            <S.InputNameSurname>
+
+          {namePage === PROFILE_PAGE ? (
+            <S.InputBlock>
+              <S.InputNameSurname>
+                <S.InputBlockName>
+                  <S.InputBlockLabel>Имя</S.InputBlockLabel>
+                  <S.NameInput />
+                </S.InputBlockName>
+                <S.InputBlockName>
+                  <S.InputBlockLabel>Фамилия</S.InputBlockLabel>
+                  <S.NameInput />
+                </S.InputBlockName>
+              </S.InputNameSurname>
               <S.InputBlockName>
-                <S.InputBlockLabel>Имя</S.InputBlockLabel>
+                <S.InputBlockLabel>Город</S.InputBlockLabel>
                 <S.NameInput />
               </S.InputBlockName>
               <S.InputBlockName>
-                <S.InputBlockLabel>Фамилия</S.InputBlockLabel>
-                <S.NameInput />
+                <S.InputBlockLabel>Телефон</S.InputBlockLabel>
+                <S.InputPhone />
               </S.InputBlockName>
-            </S.InputNameSurname>
-            <S.InputBlockName>
-              <S.InputBlockLabel>Город</S.InputBlockLabel>
-              <S.NameInput />
-            </S.InputBlockName>
-            <S.InputBlockName>
-              <S.InputBlockLabel>Телефон</S.InputBlockLabel>
-              <S.InputPhone />
-            </S.InputBlockName>
-          </S.InputBlock>
+              <S.SaveButton>Сохранить</S.SaveButton>
+            </S.InputBlock>
+          ) : (
+            <S.InputBlock>
+              <S.SellerName>Кирилл Матвеев</S.SellerName>
+              <S.SellerAddInfo>Санкт-Петербург</S.SellerAddInfo>
+              <S.SellerAddInfo>Продает товары с августа 2021</S.SellerAddInfo>
+              <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
+            </S.InputBlock>
+          )}
 
           <S.SettingsBlockInputs></S.SettingsBlockInputs>
         </S.ProfileSettingsBlock>
       </S.ProfileSettings>
-      <ProductsTitle>Мои товары</ProductsTitle>
+      {namePage === PROFILE_PAGE ? (
+        <ProductsTitle>Мои товары</ProductsTitle>
+      ) : (
+        <ProductsTitle>Товары продавца</ProductsTitle>
+      )}
+
       <ProductsMain>
         {myProducts.map((myProduct) => (
           <ProductItem

@@ -96,7 +96,26 @@ export const InputPhone = styled.input`
 export const SaveButton = styled.button`
     padding: 13px 37px;
     border-radius: 6px;
+    border: #009EE4;
+    cursor: pointer;
     background: #009EE4;
     margin-top: 30px;
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+`
 
+export const SellerName = styled.p`
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+`
+
+export const SellerAddInfo = styled.p`
+    color: #5F5F5F;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
 `
