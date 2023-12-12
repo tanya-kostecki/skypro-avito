@@ -44,3 +44,18 @@ export const SearchBlockButton = styled.button`
     margin-left: 10px;
     cursor: pointer;
 `
+
+export const BackToMainBtn = styled.button`
+    width: 241px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    border: 1px solid #009EE4;
+    background: #009EE4;
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 60px;
+    cursor: pointer;
+`

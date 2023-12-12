@@ -3,12 +3,6 @@ import { Link, NavLink ,useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
 
-interface Props {
-    isLoginMode?: boolean;
-    email?: string;
-    password?: string;
-}
-
 function AuthPage({ isLoginMode = false }: Props) {
   const [error, setError] = useState('');
 

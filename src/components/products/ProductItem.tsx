@@ -1,14 +1,6 @@
 import React from 'react';
 import * as S from './products.styles';
 
-interface Product {
-    id: number;
-    descriptionTitle: string;
-    price: string;
-    city: string;
-    date: string;
-}
-
 const ProductItem = (props: Product) => {
   return (
     <S.Card key={props.id}>

@@ -1,13 +1,13 @@
 import React from 'react'
-import Header from '../../components/header/Header'
+import Header, { MAIN_PAGE } from '../../components/header/Header'
 import Navigation from '../../components/navigation/Navigation'
 import Products from '../../components/products/Products'
 
 const MainPage = () => {
   return (
     <div>
-      <Header />
-      <Navigation />
+      <Header namePage={MAIN_PAGE}/>
+      <Navigation namePage={MAIN_PAGE}/>
       <Products />
     </div>
   )

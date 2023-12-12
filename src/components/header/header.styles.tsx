@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Header = styled.div`
-    width: 1440px;
     height: 79px;
     background: #009EE4;
     display: flex;
@@ -24,4 +23,9 @@ export const HeaderButton = styled.button`
     color: #FFFFFF;
     background: #009EE4;
     cursor: pointer;
+`
+
+export const Authorized = styled.div`
+    display: flex;
+    gap: 10px
 `
