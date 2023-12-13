@@ -5,9 +5,9 @@ import { NavLink } from 'react-router-dom';
 
 const Navigation = ({ namePage }: Page) => {
   return (
-    <S.Wrapper>
+    <>
       <S.SearchBlock>
-        <a className="search__logo-link" href="#">
+        <a className="search__logo-link" href="/">
           <S.SearchLogo
             className="search__logo-img"
             src="img/logo.png"
@@ -25,7 +25,7 @@ const Navigation = ({ namePage }: Page) => {
           </NavLink>
         )}
       </S.SearchBlock>
-    </S.Wrapper>
+    </>
   );
 };
 

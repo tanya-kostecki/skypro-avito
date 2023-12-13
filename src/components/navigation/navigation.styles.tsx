@@ -1,10 +1,5 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-    margin-left: 140px;
-    margin-right: 140px;
-`
-
 export const  SearchLogo = styled.img`
     width: 54px;
     height: 37px;
