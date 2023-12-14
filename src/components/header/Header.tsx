@@ -7,12 +7,13 @@ export { MAIN_PAGE } from '../../constants/pagesConst';
 const Header = ({ namePage }: Page) => {
   return (
     <S.Header>
-      <S.HeaderNav>
-        <NavLink to="/login" style={{ textDecoration: 'none' }}>
+      <S.HeaderNav> 
           {namePage === MAIN_PAGE ? (
-            <S.HeaderButton className="header__button">
-              Вход в личный кабинет
-            </S.HeaderButton>
+            <NavLink to="/login" style={{ textDecoration: 'none' }}>
+              <S.HeaderButton className="header__button">
+                Вход в личный кабинет
+              </S.HeaderButton>
+            </NavLink>
           ) : (
             <S.Authorized>
               <S.HeaderButton className="header__button">
@@ -21,9 +22,11 @@ const Header = ({ namePage }: Page) => {
               <S.HeaderButton className="header__button">
                 Личный кабинет
               </S.HeaderButton>
+              <S.HeaderButton className="header__button">
+                Выйти
+              </S.HeaderButton>
             </S.Authorized>
           )}
-        </NavLink>
       </S.HeaderNav>
     </S.Header>
   );

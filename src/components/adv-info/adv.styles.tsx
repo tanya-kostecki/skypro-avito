@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { $mainColor } from '../../globalStyles/GlobalStyles';
 
+export const AdvContainer = styled.div`
+ 
+`;
+
 export const Adv = styled.div`
   display: flex;
   gap: 59px;

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../components/header/Header';
 import Navigation from '../../components/navigation/Navigation';
 import { Container } from '../../globalStyles/GlobalStyles';
-import AdvInfo from '../../components/adv/AdvInfo';
+import AdvInfo from '../../components/adv-info/AdvInfo';
 import { MY_ADV } from '../../constants/pagesConst';
 
 const MyAdvPage = () => {

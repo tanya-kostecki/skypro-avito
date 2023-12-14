@@ -1,10 +1,24 @@
 import React from 'react';
 import * as S from './adv.styles';
 import { ADV_PAGE } from '../../constants/pagesConst';
+import { useState } from 'react';
+import AdvSettings from '../modals/adv-settings/AdvSettings';
+import Reviews from '../modals/reviews/Reviews';
 
 const AdvInfo = ({ namePage }: Page) => {
+  const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
+  const [reviewsPopup, setReviewsPopup] = useState<boolean>(false);
+
+  const showSettingsPopup = () => {
+    setSettingsPopup(true);
+  };
+
+  const showReviewsPopup = () => {
+    setReviewsPopup(true);
+  };
+
   return (
-    <>
+    <S.AdvContainer>
       <S.Adv>
         <S.AdvImages>
           <S.ImageBig />
@@ -24,7 +38,9 @@ const AdvInfo = ({ namePage }: Page) => {
           <S.AdvP>Сегодня в 10:45</S.AdvP>
           <S.AdvP>Санкт-Петербург</S.AdvP>
           <S.AdvReviews>
-            <S.AdvREviewLink href="/">23 отзыва</S.AdvREviewLink>
+            <S.AdvREviewLink onClick={showReviewsPopup}>
+              23 отзыва
+            </S.AdvREviewLink>
           </S.AdvReviews>
           <S.AdvPrice>2200 P</S.AdvPrice>
           {namePage === ADV_PAGE ? (
@@ -33,7 +49,9 @@ const AdvInfo = ({ namePage }: Page) => {
             </div>
           ) : (
             <S.AdvButtons>
-              <S.AdvButton>Редактировать</S.AdvButton>
+              <S.AdvButton onClick={showSettingsPopup}>
+                Редактировать
+              </S.AdvButton>
               <S.AdvButton>Снять с публикации</S.AdvButton>
             </S.AdvButtons>
           )}
@@ -67,7 +85,12 @@ const AdvInfo = ({ namePage }: Page) => {
           culpa qui officia deserunt mollit anim id est laborum.
         </S.ProductText>
       </S.ProductDescription>
-    </>
+
+      {settingsPopup ? (
+        <AdvSettings setSettingsPopup={setSettingsPopup} />
+      ) : null}
+      {reviewsPopup ? <Reviews setReviewsPopup={setReviewsPopup}/> : null}
+    </S.AdvContainer>
   );
 };
 
