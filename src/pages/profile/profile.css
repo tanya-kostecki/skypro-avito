@@ -50,10 +50,6 @@
 }
 
 @media screen and (max-width: 580px) {
-  .container {
-    width: 100%;
-    min-width: 320px;
-  }
   .seller-main__container {
     padding: 85px 0px 84px;
   }
@@ -100,4 +96,4 @@
     justify-content: center;
     height: 596px;
   }
-}/*# sourceMappingURL=seller.css.map */
+}/*# sourceMappingURL=profile.css.map */

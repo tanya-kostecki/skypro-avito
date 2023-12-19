@@ -11,7 +11,7 @@
 .profile-sell__seller {
   display: flex;
   align-items: top;
-  justify-content: flex-start;
+  justify-content: start;
 }
 
 .seller__left {

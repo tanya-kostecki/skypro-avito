@@ -1,4 +1,3 @@
-// =================== main ====================//
 .seller-main {
     
     &__container {
@@ -60,10 +59,6 @@
 
 // ================== Медиа ====================================
 @media screen and (max-width: 580px) {
-    .container {
-        width: 100%;
-        min-width: 320px;     
-    }
 
     .seller-main {
 
@@ -111,7 +106,6 @@
             margin: 0 auto;
 
         }
-
     }
 
     .seller__cards {
@@ -123,4 +117,3 @@
         height: 596px;
     }
 }
-
