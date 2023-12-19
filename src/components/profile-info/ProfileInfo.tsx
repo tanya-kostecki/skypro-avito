@@ -1,93 +1,75 @@
 import React from 'react';
-import { Container } from '../products/products.styles';
-import * as S from './profile-info.styles';
-import { ProductsTitle, ProductsMain } from '../products/products.styles';
-import { myProducts } from '../../constants/myProductsConst';
-import ProductItem from '../products/ProductItem';
-import { PROFILE_PAGE } from '../../constants/pagesConst';
+import './profile-info.css'
 
-const ProfileInfo = ({ namePage }: Page) => {
+const ProfileInfo = () => {
   return (
-    <Container>
-      {namePage === PROFILE_PAGE ? (
-        <S.ProfileIntoTitle>Здравствуйте, Антон!</S.ProfileIntoTitle>
-      ) : (
-        <S.ProfileIntoTitle>Профиль продавца</S.ProfileIntoTitle>
-      )}
-      <S.ProfileSettings>
-        {namePage === PROFILE_PAGE ? (
-          <S.ProfileSettingsTitle>Настройки профиля</S.ProfileSettingsTitle>
-        ) : null}
+    <div className="profile">
+      <div className="profile__content">
+        <h3 className="profile__title title">Настройки профиля</h3>
+        <div className="profile__settings settings">
+          <div className="settings__left">
+            <div className="settings__img">
+              <a href="" target="_self">
+                <img src="#" alt="" />
+              </a>
+            </div>
+            <a className="settings__change-photo" href="" target="_self">
+              Заменить
+            </a>
+          </div>
+          <div className="settings__right">
+            <form className="settings__form" action="#">
+              <div className="settings__div">
+                <label>Имя</label>
+                <input
+                  className="settings__f-name"
+                  id="settings-fname"
+                  name="fname"
+                  type="text"
+                  placeholder=""
+                />
+              </div>
 
-        <S.ProfileSettingsBlock>
-          <S.AvatarBlock>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="170"
-              height="170"
-              viewBox="0 0 170 170"
-              fill="none"
-            >
-              <circle cx="85" cy="85" r="85" fill="#F0F0F0" />
-            </svg>
-            {namePage === PROFILE_PAGE ? (
-              <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
-            ) : null}
-          </S.AvatarBlock>
+              <div className="settings__div">
+                <label>Фамилия</label>
+                <input
+                  className="settings__l-name"
+                  id="settings-lname"
+                  name="lname"
+                  type="text"
+                  placeholder=""
+                />
+              </div>
 
-          {namePage === PROFILE_PAGE ? (
-            <S.InputBlock>
-              <S.InputNameSurname>
-                <S.InputBlockName>
-                  <S.InputBlockLabel>Имя</S.InputBlockLabel>
-                  <S.NameInput />
-                </S.InputBlockName>
-                <S.InputBlockName>
-                  <S.InputBlockLabel>Фамилия</S.InputBlockLabel>
-                  <S.NameInput />
-                </S.InputBlockName>
-              </S.InputNameSurname>
-              <S.InputBlockName>
-                <S.InputBlockLabel>Город</S.InputBlockLabel>
-                <S.NameInput />
-              </S.InputBlockName>
-              <S.InputBlockName>
-                <S.InputBlockLabel>Телефон</S.InputBlockLabel>
-                <S.InputPhone />
-              </S.InputBlockName>
-              <S.SaveButton>Сохранить</S.SaveButton>
-            </S.InputBlock>
-          ) : (
-            <S.InputBlock>
-              <S.SellerName>Кирилл Матвеев</S.SellerName>
-              <S.SellerAddInfo>Санкт-Петербург</S.SellerAddInfo>
-              <S.SellerAddInfo>Продает товары с августа 2021</S.SellerAddInfo>
-              <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
-            </S.InputBlock>
-          )}
+              <div className="settings__div">
+                <label>Город</label>
+                <input
+                  className="settings__city"
+                  id="settings-city"
+                  name="city"
+                  type="text"
+                  placeholder=""
+                />
+              </div>
 
-          <S.SettingsBlockInputs></S.SettingsBlockInputs>
-        </S.ProfileSettingsBlock>
-      </S.ProfileSettings>
-      {namePage === PROFILE_PAGE ? (
-        <ProductsTitle>Мои товары</ProductsTitle>
-      ) : (
-        <ProductsTitle>Товары продавца</ProductsTitle>
-      )}
+              <div className="settings__div">
+                <label>Телефон</label>
+                <input
+                  className="settings__phone"
+                  id="settings-phone"
+                  name="phone"
+                  type="tel"
+                />
+              </div>
 
-      <ProductsMain>
-        {myProducts.map((myProduct) => (
-          <ProductItem
-            key={myProduct.id}
-            descriptionTitle={myProduct.descriptionTitle}
-            price={myProduct.price}
-            city={myProduct.city}
-            date={myProduct.date}
-            id={0}
-          />
-        ))}
-      </ProductsMain>
-    </Container>
+              <button className="settings__btn btn-hov02" id="settings-btn">
+                Сохранить
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
