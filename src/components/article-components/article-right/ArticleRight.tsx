@@ -2,7 +2,9 @@ import React from 'react';
 import './article-right.css';
 import { ADV_PAGE, MY_ADV } from '../../../constants/pagesConst';
 
+
 const ArticleRight = ({ namePage }: Page) => {
+
   return (
     <div className="article__right">
       <div className="article__block">

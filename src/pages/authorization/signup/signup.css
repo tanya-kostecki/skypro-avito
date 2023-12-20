@@ -1,0 +1,22 @@
+.container-signup {
+  max-width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  background-color: #F4F5F6;
+}
+
+.signup__block {
+  position: absolute;
+  z-index: 2;
+  left: calc(50% - 183px);
+  top: calc(50% - 323.5px);
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .signup__block {
+    left: calc(50% - 160px);
+    top: 55px;
+  }
+}/*# sourceMappingURL=signup.css.map */
