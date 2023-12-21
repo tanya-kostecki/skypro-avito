@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { $mobileWidth } from "../../constants/breakpoints";
 
 export const Header = styled.div`
     height: 79px;
     background: #009EE4;
     display: flex;
     align-items: center;
-    justify-content: flex-end;  
+    justify-content: flex-end;
+    
+    @media screen and (max-width: ${$mobileWidth}) {
+        display: none;
+    }
 `
 export const HeaderNav = styled.div`
     background: #009EE4;

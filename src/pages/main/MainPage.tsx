@@ -8,8 +8,9 @@ const MainPage = () => {
   return (
     <div>
       <Header namePage={MAIN_PAGE} />
+      <Navigation namePage={MAIN_PAGE} />
       <Container>
-        <Navigation namePage={MAIN_PAGE} />
+        {/* <Navigation namePage={MAIN_PAGE} /> */}
         <Products />
       </Container>
     </div>
