@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '../products/products.styles';
+import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
 import { ProductsTitle, ProductsMain } from '../products/products.styles';
 import { myProducts } from '../../constants/myProductsConst';
@@ -8,7 +8,7 @@ import { PROFILE_PAGE } from '../../constants/pagesConst';
 
 const ProfileInfo = ({ namePage }: Page) => {
   return (
-    <Container>
+    <ProductsContainer>
       {namePage === PROFILE_PAGE ? (
         <S.ProfileIntoTitle>Здравствуйте, Антон!</S.ProfileIntoTitle>
       ) : (
@@ -87,7 +87,7 @@ const ProfileInfo = ({ namePage }: Page) => {
           />
         ))}
       </ProductsMain>
-    </Container>
+    </ProductsContainer>
   );
 };
 

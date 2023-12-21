@@ -5,7 +5,7 @@ import { products } from '../../constants/productsConst';
 
 const Products = () => {
   return (
-    <S.Container>
+    <S.ProductsContainer>
       <S.ProductsTitle>Объявления</S.ProductsTitle>
       <S.ProductsMain>
         {products.map((product) => (
@@ -19,7 +19,7 @@ const Products = () => {
           />
         ))}
       </S.ProductsMain>
-    </S.Container>
+    </S.ProductsContainer>
   );
 };
 

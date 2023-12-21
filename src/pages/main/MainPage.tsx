@@ -3,6 +3,7 @@ import Header, { MAIN_PAGE } from '../../components/header/Header'
 import Navigation from '../../components/navigation/Navigation'
 import Products from '../../components/products/Products'
 import { Container } from '../../globalStyles/GlobalStyles';
+import MobileFooter from '../../footer/MobileFooter';
 
 const MainPage = () => {
   return (
@@ -13,6 +14,7 @@ const MainPage = () => {
         {/* <Navigation namePage={MAIN_PAGE} /> */}
         <Products />
       </Container>
+      <MobileFooter/>
     </div>
   );
 }
