@@ -34,7 +34,6 @@ export const SearchBlock = styled.div`
 
   @media screen and (max-width: ${$mobileWidth}) {
     background-color: ${$mainColor};
-    height: 55px;
     padding-top: 12px;
     padding-bottom: 12px;
     gap: 10px;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { $mobileWidth } from '../constants/breakpoints';
+import { $mobileWidth } from '../../constants/breakpoints';
 
 export const Footer = styled.footer`
   display: none;

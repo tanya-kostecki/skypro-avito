@@ -8,11 +8,28 @@ export const ProfileIntoTitle = styled.h2`
   font-weight: 500;
   line-height: 220%;
   margin-bottom: 10px;
+  display: flex;
+  gap: 5.5px;
 
   @media screen and (max-width: ${$mobileWidth}) {
     font-size: 24px;
     font-weight: 500;
     text-align: left;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      background-color: transparent;
+      border-top: 2px solid #000000;
+      border-left: 2px solid #000000;
+      transform: rotate(-45deg);
+      position: absolute;
+      cursor: pointer;
+      top: 100px;
+      left: 40px;
+    }
   }
 `;
 

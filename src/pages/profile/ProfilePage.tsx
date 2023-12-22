@@ -4,7 +4,7 @@ import { PROFILE_PAGE } from '../../constants/pagesConst'
 import Navigation from '../../components/navigation/Navigation'
 import ProfileInfo from '../../components/profile-info/ProfileInfo'
 import { Container } from '../../globalStyles/GlobalStyles';
-import MobileFooter from '../../footer/MobileFooter'
+import MobileFooter from '../../components/footer/MobileFooter';
 
 const ProfilePage = () => {
   return (

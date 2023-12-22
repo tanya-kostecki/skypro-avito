@@ -3,3 +3,4 @@ export const PROFILE_PAGE = 'PROFILE_PAGE';
 export const ADV_PAGE = 'ADV_PAGE';
 export const MY_ADV = 'MY_ADV';
 export const SELLER_PAGE = 'SELLER_PAGE';
+export const AUTH_PAGE = 'AUTH_PAGE';

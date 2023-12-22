@@ -60,7 +60,9 @@ export const SettingsName = styled.span`
 export const SettingsNameBlock = styled.input`
   border-radius: 6px;
   border: 1px solid;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: Roboto;
   font-size: 16px;
   font-weight: 400;
   text-align: left;
@@ -69,10 +71,12 @@ export const SettingsNameBlock = styled.input`
 `;
 export const SettingsDescriptionBlock = styled.textarea`
   width: 100%;
-  height: 200px;
+  height: 150px;
   border-radius: 6px;
   border: 1px solid;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: Roboto;
   font-size: 16px;
   font-weight: 400;
   text-align: justify;

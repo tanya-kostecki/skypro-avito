@@ -1,9 +1,14 @@
 import { styled } from "styled-components";
+import { $mobileWidth } from "../../constants/breakpoints";
 
 export const PageContainer = styled.div`
   max-width: 100%;
   height: 100vh;
   background-color: rgba(0, 158, 228, 0.85);
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    background-color: #fff;
+  }
 `;
 
 export const ModalForm = styled.div`
@@ -19,6 +24,11 @@ export const ModalForm = styled.div`
   background-color: #ffffff;
   border-radius: 12px;
   padding: 43px 47px 47px 40px;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 `;
 export const ModalLogo = styled.div`
   display: flex;
@@ -78,6 +88,10 @@ export const PrimaryButton = styled(Button)`
   &:active {
     background-color: #271a58;
   }
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: 100%;
+  }
 `;
 export const SecondaryButton = styled(Button)`
   color: #000000;
@@ -90,6 +104,10 @@ export const SecondaryButton = styled(Button)`
 
   &:active {
     background-color: #d9d9d9;
+  }
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: 100%;
   }
 `;
 
