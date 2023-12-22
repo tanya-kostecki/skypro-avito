@@ -9,8 +9,9 @@ const AdvPage = () => {
   return (
     <div>
       <Header namePage={ADV_PAGE} />
+      <Navigation namePage={ADV_PAGE} />
       <Container>
-        <Navigation namePage={ADV_PAGE} />
+        {/* <Navigation namePage={ADV_PAGE} /> */}
         <AdvInfo namePage={ADV_PAGE}/>
       </Container>
     </div>
