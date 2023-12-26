@@ -27,7 +27,7 @@ export const ProfileIntoTitle = styled.h2`
       transform: rotate(-45deg);
       position: absolute;
       cursor: pointer;
-      top: 100px;
+      top: 40px;
       left: 40px;
     }
   }

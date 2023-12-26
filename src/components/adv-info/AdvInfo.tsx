@@ -4,6 +4,8 @@ import { ADV_PAGE } from '../../constants/pagesConst';
 import { useState } from 'react';
 import AdvSettings from '../modals/adv-settings/AdvSettings';
 import Reviews from '../modals/reviews/Reviews';
+import useGetWindowWidth from '../../hooks/WindowWidth';
+import { useNavigate } from 'react-router-dom';
 
 const AdvInfo = ({ namePage }: Page) => {
   const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
@@ -15,6 +17,17 @@ const AdvInfo = ({ namePage }: Page) => {
 
   const showReviewsPopup = () => {
     setReviewsPopup(true);
+  };
+
+  const screenSize = useGetWindowWidth();
+  const navigate = useNavigate();
+
+  const showMobileSettings = () => {
+    navigate('/adv-settings', { replace: true });
+  };
+
+  const showMobileReviews = () => {
+    navigate('/reviews', { replace: true });
   };
 
   return (
@@ -38,9 +51,15 @@ const AdvInfo = ({ namePage }: Page) => {
           <S.AdvP>Сегодня в 10:45</S.AdvP>
           <S.AdvP>Санкт-Петербург</S.AdvP>
           <S.AdvReviews>
-            <S.AdvREviewLink onClick={showReviewsPopup}>
-              23 отзыва
-            </S.AdvREviewLink>
+            {screenSize.width > 480 ? (
+              <S.AdvREviewLink onClick={showReviewsPopup}>
+                23 отзыва
+              </S.AdvREviewLink>
+            ) : (
+              <S.AdvREviewLink onClick={showMobileReviews}>
+                23 отзыва
+              </S.AdvREviewLink>
+            )}
           </S.AdvReviews>
           <S.AdvPrice>2200 P</S.AdvPrice>
           {namePage === ADV_PAGE ? (
@@ -49,9 +68,16 @@ const AdvInfo = ({ namePage }: Page) => {
             </div>
           ) : (
             <S.AdvButtons>
-              <S.AdvButton onClick={showSettingsPopup}>
-                Редактировать
-              </S.AdvButton>
+              {screenSize.width > 480 ? (
+                <S.AdvButton onClick={showSettingsPopup}>
+                  Редактировать
+                </S.AdvButton>
+              ) : (
+                <S.AdvButton onClick={showMobileSettings}>
+                  Редактировать
+                </S.AdvButton>
+              )}
+
               <S.AdvButton>Снять с публикации</S.AdvButton>
             </S.AdvButtons>
           )}
@@ -89,7 +115,7 @@ const AdvInfo = ({ namePage }: Page) => {
       {settingsPopup ? (
         <AdvSettings setSettingsPopup={setSettingsPopup} />
       ) : null}
-      {reviewsPopup ? <Reviews setReviewsPopup={setReviewsPopup}/> : null}
+      {reviewsPopup ? <Reviews setReviewsPopup={setReviewsPopup} /> : null}
     </S.AdvContainer>
   );
 };

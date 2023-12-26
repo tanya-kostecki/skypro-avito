@@ -2,7 +2,13 @@ import styled from 'styled-components';
 import { $mainColor } from '../../globalStyles/GlobalStyles';
 import { $mobileWidth } from '../../constants/breakpoints';
 
-export const AdvContainer = styled.div``;
+export const AdvContainer = styled.div`
+@media screen and (max-width: ${$mobileWidth}) {
+  position: relative;
+  top: 59px;
+  z-index: -1;
+}
+`;
 
 export const Adv = styled.div`
   display: flex;
@@ -196,6 +202,7 @@ export const ProductDescription = styled.div`
 
   @media screen and (max-width: ${$mobileWidth}) {
     margin-top: 30px;
+    overflow-y: scroll;
   }
 `;
 export const ProductTitle = styled.h2`

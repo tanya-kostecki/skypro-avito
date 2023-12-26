@@ -6,6 +6,7 @@ export const SearchBlockContainer = styled.div`
   width: 100vw;
 
   @media screen and (max-width: ${$mobileWidth}) {
+    position: fixed;
   }
 `;
 export const SearchBlockLogo = styled.a`
@@ -28,7 +29,6 @@ export const SearchBlock = styled.div`
   padding-bottom: 43px;
   display: flex;
   align-items: center;
-  width: 100vw;
   padding-left: 140px;
   padding-right: 140px;
 

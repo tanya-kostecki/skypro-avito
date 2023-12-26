@@ -9,6 +9,10 @@ export const ProductsContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    position: relative;
+    z-index: -1;
+    top: 40px;
   }
 `;
 
@@ -33,6 +37,9 @@ export const ProductsMain = styled.div`
   gap: 26px;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+  }
 `;
 export const ProductItem = styled.div`
   width: 270px;
@@ -67,6 +74,7 @@ export const CardImg = styled.div`
   @media screen and (max-width: ${$mobileWidth}) {
     width: 137px;
     height: 137px;
+    margin-bottom: 0;
   }
 `;
 
