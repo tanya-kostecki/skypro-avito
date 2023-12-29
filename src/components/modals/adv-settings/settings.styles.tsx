@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { $mobileWidth } from '../../../constants/breakpoints';
 
 export const SettingsContainer = styled.div`
   position: fixed;
@@ -18,6 +19,10 @@ export const CloseBlock = styled.div`
   top: 28px;
   right: 0px;
   padding: 10px;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    display: none;
+  }
 `;
 export const CloseButton = styled.div`
   display: flex;
@@ -44,6 +49,17 @@ export const SettingsTitle = styled.span`
   line-height: 70px;
   letter-spacing: 0em;
   text-align: left;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: center;
+    display: block;
+    padding-top: 30px;
+  }
 `;
 export const SettingsInfo = styled.div`
   display: flex;
@@ -120,4 +136,8 @@ export const SettingsButton = styled.button`
   background: #D9D9D9;
   color: #FFFFFF;
   cursor: pointer;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: 100%;
+  }
 `;

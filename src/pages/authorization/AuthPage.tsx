@@ -6,6 +6,7 @@ import MobileFooter from "../../components/footer/MobileFooter";
 import Navigation from "../../components/navigation/Navigation";
 import { AUTH_PAGE } from "../../constants/pagesConst";
 import useGetWindowWidth from "../../hooks/WindowWidth";
+import { Props } from "../../types";
 
 function AuthPage({ isLoginMode = false }: Props) {
   const [error, setError] = useState('');

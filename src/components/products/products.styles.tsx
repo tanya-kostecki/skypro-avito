@@ -77,6 +77,14 @@ export const CardImg = styled.div`
     margin-bottom: 0;
   }
 `;
+export const CardImgImg = styled.img`
+  width: 100%;
+  height: 100%;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    margin-bottom: 0;
+  }
+`
 
 export const CardDescription = styled.div`
   display: flex;

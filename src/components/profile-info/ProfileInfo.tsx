@@ -2,9 +2,10 @@ import React from 'react';
 import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
 import { ProductsTitle, ProductsMain } from '../products/products.styles';
-import { myProducts } from '../../constants/myProductsConst';
-import ProductItem from '../products/ProductItem';
+// import { myProducts } from '../../constants/myProductsConst';
+// import ProductItem from '../products/ProductItem';
 import { PROFILE_PAGE } from '../../constants/pagesConst';
+import { Page } from '../../types';
 
 const ProfileInfo = ({ namePage }: Page) => {
   return (
@@ -76,7 +77,7 @@ const ProfileInfo = ({ namePage }: Page) => {
       )}
 
       <ProductsMain>
-        {myProducts.map((myProduct) => (
+        {/* {myProducts.map((myProduct) => (
           <ProductItem
             key={myProduct.id}
             descriptionTitle={myProduct.descriptionTitle}
@@ -85,7 +86,7 @@ const ProfileInfo = ({ namePage }: Page) => {
             date={myProduct.date}
             id={0}
           />
-        ))}
+        ))} */}
       </ProductsMain>
     </ProductsContainer>
   );

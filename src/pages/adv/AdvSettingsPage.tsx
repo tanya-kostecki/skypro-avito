@@ -11,9 +11,11 @@ const AdvSettingsPage = () => {
       <Navigation namePage={ADV_PAGE} />
       <Container>
         {/* <Navigation namePage={ADV_PAGE} /> */}
-        <div>AdvSettings Page</div>
+        <div style={{ position: 'relative', top: '60px' }}>
+          AdvSettings Page
+        </div>
       </Container>
-      <MobileFooter/>
+      <MobileFooter />
     </div>
   );
 };

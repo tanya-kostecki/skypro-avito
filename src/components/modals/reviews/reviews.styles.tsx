@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { $mobileWidth } from '../../../constants/breakpoints';
 
 export const ReviewsModal = styled.div`
   position: fixed;
@@ -10,11 +11,23 @@ export const ReviewsModal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: auto;
+    background-color: transparent;
+    position: relative;
+    top: 59px;
+    z-index: -1;
+  }
 `;
 export const ReviewsContainer = styled.div`
   width: 800px;
   height: 900px;
   border-radius: 12px;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: auto;
+  }
 `;
 export const ReviewsMain = styled.div`
   display: flex;
@@ -23,6 +36,18 @@ export const ReviewsMain = styled.div`
   border-radius: 12px;
   background-color: white;
   position: relative;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    padding: 0px;
+  }
+`;
+export const ReviewsAdd = styled.div`
+  @media screen and (max-width: ${$mobileWidth}) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const ReviewAddTitle = styled.p`
@@ -30,6 +55,8 @@ export const ReviewAddTitle = styled.p`
   font-weight: 600;
   line-height: 32px;
   text-align: left;
+
+  
 `;
 export const ReviewsInput = styled.textarea`
   width: 652px;
@@ -48,6 +75,10 @@ export const ReviewsInput = styled.textarea`
     letter-spacing: 0em;
     text-align: left;
   }
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: 100%;
+  }
 `;
 export const ReviewsInfo = styled.div`
   width: 652px;
@@ -55,6 +86,11 @@ export const ReviewsInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: auto;
+    height: 828px;
+  }
 `;
 
 export const ReviewsComment = styled.div`

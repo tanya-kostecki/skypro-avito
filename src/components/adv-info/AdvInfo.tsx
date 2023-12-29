@@ -6,28 +6,29 @@ import AdvSettings from '../modals/adv-settings/AdvSettings';
 import Reviews from '../modals/reviews/Reviews';
 import useGetWindowWidth from '../../hooks/WindowWidth';
 import { useNavigate } from 'react-router-dom';
+import { Page } from '../../types';
 
 const AdvInfo = ({ namePage }: Page) => {
   const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
   const [reviewsPopup, setReviewsPopup] = useState<boolean>(false);
 
-  const showSettingsPopup = () => {
-    setSettingsPopup(true);
-  };
-
-  const showReviewsPopup = () => {
-    setReviewsPopup(true);
-  };
-
   const screenSize = useGetWindowWidth();
   const navigate = useNavigate();
 
-  const showMobileSettings = () => {
-    navigate('/adv-settings', { replace: true });
+  const showSettingsPopup = () => {
+    if (screenSize.width > 480) {
+      setSettingsPopup(true);
+    } else {
+      navigate('/adv-settings');
+    }
   };
 
-  const showMobileReviews = () => {
-    navigate('/reviews', { replace: true });
+  const showReviewsPopup = () => {
+    if (screenSize.width > 480) {
+      setReviewsPopup(true);
+    } else {
+      navigate('/reviews');
+    }
   };
 
   return (
@@ -51,15 +52,9 @@ const AdvInfo = ({ namePage }: Page) => {
           <S.AdvP>Сегодня в 10:45</S.AdvP>
           <S.AdvP>Санкт-Петербург</S.AdvP>
           <S.AdvReviews>
-            {screenSize.width > 480 ? (
-              <S.AdvREviewLink onClick={showReviewsPopup}>
-                23 отзыва
-              </S.AdvREviewLink>
-            ) : (
-              <S.AdvREviewLink onClick={showMobileReviews}>
-                23 отзыва
-              </S.AdvREviewLink>
-            )}
+            <S.AdvREviewLink onClick={showReviewsPopup}>
+              23 отзыва
+            </S.AdvREviewLink>
           </S.AdvReviews>
           <S.AdvPrice>2200 P</S.AdvPrice>
           {namePage === ADV_PAGE ? (
@@ -68,16 +63,9 @@ const AdvInfo = ({ namePage }: Page) => {
             </div>
           ) : (
             <S.AdvButtons>
-              {screenSize.width > 480 ? (
-                <S.AdvButton onClick={showSettingsPopup}>
-                  Редактировать
-                </S.AdvButton>
-              ) : (
-                <S.AdvButton onClick={showMobileSettings}>
-                  Редактировать
-                </S.AdvButton>
-              )}
-
+              <S.AdvButton onClick={showSettingsPopup}>
+                Редактировать
+              </S.AdvButton>
               <S.AdvButton>Снять с публикации</S.AdvButton>
             </S.AdvButtons>
           )}

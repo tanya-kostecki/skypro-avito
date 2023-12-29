@@ -10,7 +10,6 @@ import useGetWindowWidth from './hooks/WindowWidth';
 import AdvSettingsPage from './pages/adv/AdvSettingsPage';
 import ReviewsPage from './pages/reviews/ReviewsPage';
 
-
 const AppRoutes = () => {
   const screenSize = useGetWindowWidth();
   return (
@@ -31,7 +30,7 @@ const AppRoutes = () => {
       {screenSize.width < 481 ? (
         <Route
           path="/reviews"
-          element={<ReviewsPage />}
+          element={<ReviewsPage/>}
         ></Route>
       ) : null}
     </Routes>

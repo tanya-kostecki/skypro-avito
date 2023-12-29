@@ -2,6 +2,7 @@ import React from 'react';
 import * as S from './navigation.styles';
 import { MAIN_PAGE } from '../header/Header';
 import { NavLink } from 'react-router-dom';
+import { Page } from '../../types';
 
 const Navigation = ({ namePage }: Page) => {
   return (

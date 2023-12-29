@@ -3,11 +3,9 @@ import { $mainColor } from '../../globalStyles/GlobalStyles';
 import { $mobileWidth } from '../../constants/breakpoints';
 
 export const AdvContainer = styled.div`
-@media screen and (max-width: ${$mobileWidth}) {
-  position: relative;
-  top: 59px;
-  z-index: -1;
-}
+  @media screen and (max-width: ${$mobileWidth}) {
+    padding-top: 59px;
+  }
 `;
 
 export const Adv = styled.div`

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { MAIN_PAGE } from '../../constants/pagesConst';
 import AddNewAdv from '../add-adv/addNewAdv';
 export { MAIN_PAGE } from '../../constants/pagesConst';
+import { Page } from '../../types';
 
 const Header = ({ namePage }: Page) => {
   const [newAdv, setNewAdv] = useState<boolean>(false)
