@@ -5,15 +5,18 @@ import AdvInfo from '../../components/adv-info/AdvInfo';
 import { ADV_PAGE } from '../../constants/pagesConst';
 import { Container } from '../../globalStyles/GlobalStyles';
 import MobileFooter from '../../components/footer/MobileFooter';
+import { useParams } from 'react-router-dom';
 
 const AdvPage = () => {
+  const params = useParams()
+  const adId = Number(params.id)
+
   return (
     <div>
       <Header namePage={ADV_PAGE} />
       <Navigation namePage={ADV_PAGE} />
       <Container>
-        {/* <Navigation namePage={ADV_PAGE} /> */}
-        <AdvInfo namePage={ADV_PAGE}/>
+        <AdvInfo namePage={ADV_PAGE} adId={adId}/>
       </Container>
       <MobileFooter/>
     </div>

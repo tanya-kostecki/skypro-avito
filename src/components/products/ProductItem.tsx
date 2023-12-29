@@ -4,7 +4,6 @@ import { IAdv } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
 
 const ProductItem = (props: IAdv) => {
-  if (props.images.length !== 0) console.log('img', props.images[0].url)
   return (
     <S.Card key={props.id}>
       {props.images.length !== 0 ? (
@@ -20,7 +19,7 @@ const ProductItem = (props: IAdv) => {
       ) : (
         <S.CardImg>
           <a className="card__link" href="#">
-            <img className="card__img_img" src="" alt="card" />
+            <img className="card__img_img" src="" alt="" />
           </a>
         </S.CardImg>
       )}
@@ -30,7 +29,7 @@ const ProductItem = (props: IAdv) => {
           <S.CardDescriptionTitle>{props.title}</S.CardDescriptionTitle>
         </a>
         <S.CardPrice>{props.price} P</S.CardPrice>
-        {/* <S.CardCity>{props.user?.city}</S.CardCity> */}
+        <S.CardCity>{props?.user?.city}</S.CardCity>
         <S.CardDate>{props.created_on}</S.CardDate>
       </S.CardDescription>
     </S.Card>

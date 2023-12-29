@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './adv.styles';
 import { ADV_PAGE } from '../../constants/pagesConst';
 import { useState } from 'react';
@@ -7,8 +7,10 @@ import Reviews from '../modals/reviews/Reviews';
 import useGetWindowWidth from '../../hooks/WindowWidth';
 import { useNavigate } from 'react-router-dom';
 import { Page } from '../../types';
+import { baseUrl, getAdverts } from '../../api/AdvApi';
+import { IAdv } from '../../types';
 
-const AdvInfo = ({ namePage }: Page) => {
+const AdvInfo = ({ namePage, adId }: Page) => {
   const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
   const [reviewsPopup, setReviewsPopup] = useState<boolean>(false);
 
@@ -31,35 +33,55 @@ const AdvInfo = ({ namePage }: Page) => {
     }
   };
 
+  const [adv, setAdv] = useState<IAdv[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAdverts();
+        setAdv(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const currentAdv = adv.find((elem) => elem.id === adId);
+
   return (
     <S.AdvContainer>
       <S.Adv>
         <S.AdvImages>
-          <S.ImageBig />
-          <S.SmallImages>
+          {currentAdv?.images.length !== 0 ? (
+            <S.ImageBig src={`${baseUrl}` + currentAdv?.images[0]?.url} />
+          ) : (
+            <S.ImageBig />
+          )}
+
+          {/* <S.SmallImages>
             <S.ImageSmall />
             <S.ImageSmall />
             <S.ImageSmall />
             <S.ImageSmall />
             <S.ImageSmall />
-          </S.SmallImages>
+          </S.SmallImages> */}
         </S.AdvImages>
 
         <S.AdvMain>
-          <S.AdvTitle>
-            Ракетка для большого тенниса <br /> Triumph Pro STС Б/У
-          </S.AdvTitle>
-          <S.AdvP>Сегодня в 10:45</S.AdvP>
-          <S.AdvP>Санкт-Петербург</S.AdvP>
+          <S.AdvTitle>{currentAdv?.title}</S.AdvTitle>
+          <S.AdvP>{currentAdv?.created_on}</S.AdvP>
+          <S.AdvP>{currentAdv?.user?.city}</S.AdvP>
           <S.AdvReviews>
             <S.AdvREviewLink onClick={showReviewsPopup}>
               23 отзыва
             </S.AdvREviewLink>
           </S.AdvReviews>
-          <S.AdvPrice>2200 P</S.AdvPrice>
+          <S.AdvPrice>{currentAdv?.price} P</S.AdvPrice>
           {namePage === ADV_PAGE ? (
             <div className="adv__description_buttons">
-              <S.AdvButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.AdvButton>
+              <S.AdvButton>
+                Показать телефон {currentAdv?.user?.phone}
+              </S.AdvButton>
             </div>
           ) : (
             <S.AdvButtons>
@@ -80,7 +102,7 @@ const AdvInfo = ({ namePage }: Page) => {
               <circle id="Ellipse 2" cx="20" cy="20" r="20" fill="#F0F0F0" />
             </svg>
             <S.AdvSellerInfo>
-              <S.AdvSellerName>Антон</S.AdvSellerName>
+              <S.AdvSellerName>{currentAdv?.user?.name}</S.AdvSellerName>
               <S.AdvSellerDate>Продает товары с мая 2022</S.AdvSellerDate>
             </S.AdvSellerInfo>
           </S.AdvSeller>
@@ -89,15 +111,7 @@ const AdvInfo = ({ namePage }: Page) => {
 
       <S.ProductDescription>
         <S.ProductTitle>Описание товара</S.ProductTitle>
-        <S.ProductText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </S.ProductText>
+        <S.ProductText>{currentAdv?.description}</S.ProductText>
       </S.ProductDescription>
 
       {settingsPopup ? (

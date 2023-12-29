@@ -11,7 +11,7 @@ const Navigation = ({ namePage }: Page) => {
         <S.SearchBlockLogo href="/">
           <S.SearchLogo
             className="search__logo-img"
-            src="img/logo.png"
+            src="/img/logo.png"
             alt="logo"
           />
         </S.SearchBlockLogo>

@@ -7,17 +7,17 @@ const MobileFooter = () => {
       <S.FooterContainer>
         <S.FooterImg>
           <a href="" target="_self">
-            <S.FooterImgImg src="img/icon_01.png" alt="home" />
+            <S.FooterImgImg src="/img/icon_01.png" alt="home" />
           </a>
         </S.FooterImg>
         <S.FooterImg>
           <a href="" target="_self">
-            <S.FooterImgImg src="img/icon_02.png" alt="home" />
+            <S.FooterImgImg src="/img/icon_02.png" alt="home" />
           </a>
         </S.FooterImg>
         <S.FooterImg>
           <a href="" target="_self">
-            <S.FooterImgImg src="img/icon_03.png" alt="home" />
+            <S.FooterImgImg src="/img/icon_03.png" alt="home" />
           </a>
         </S.FooterImg>
       </S.FooterContainer>

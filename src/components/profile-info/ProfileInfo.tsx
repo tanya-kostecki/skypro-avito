@@ -1,11 +1,10 @@
 import React from 'react';
 import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
-import { ProductsTitle, ProductsMain } from '../products/products.styles';
-// import { myProducts } from '../../constants/myProductsConst';
-// import ProductItem from '../products/ProductItem';
+import { ProductsTitle } from '../products/products.styles';
 import { PROFILE_PAGE } from '../../constants/pagesConst';
 import { Page } from '../../types';
+// import Products from '../products/Products';
 
 const ProfileInfo = ({ namePage }: Page) => {
   return (
@@ -76,18 +75,7 @@ const ProfileInfo = ({ namePage }: Page) => {
         <ProductsTitle>Товары продавца</ProductsTitle>
       )}
 
-      <ProductsMain>
-        {/* {myProducts.map((myProduct) => (
-          <ProductItem
-            key={myProduct.id}
-            descriptionTitle={myProduct.descriptionTitle}
-            price={myProduct.price}
-            city={myProduct.city}
-            date={myProduct.date}
-            id={0}
-          />
-        ))} */}
-      </ProductsMain>
+      {/* <Products/> */}
     </ProductsContainer>
   );
 };
