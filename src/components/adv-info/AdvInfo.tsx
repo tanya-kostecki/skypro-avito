@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './adv.styles';
 import { ADV_PAGE } from '../../constants/pagesConst';
-import { useState } from 'react';
 import AdvSettings from '../modals/adv-settings/AdvSettings';
 import Reviews from '../modals/reviews/Reviews';
 import useGetWindowWidth from '../../hooks/WindowWidth';
@@ -9,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { Page } from '../../types';
 import { baseUrl, getAdverts } from '../../api/AdvApi';
 import { IAdv } from '../../types';
+import { formatDate } from '../../helpers/FormatDate';
 
 const AdvInfo = ({ namePage, adId }: Page) => {
   const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
@@ -48,6 +48,12 @@ const AdvInfo = ({ namePage, adId }: Page) => {
 
   const currentAdv = adv.find((elem) => elem.id === adId);
 
+  const [phoneNumber, setPhoneNumber] = useState<boolean>(false);
+
+  const showPhoneNumber = () => {
+    setPhoneNumber(true);
+  };
+
   return (
     <S.AdvContainer>
       <S.Adv>
@@ -69,7 +75,7 @@ const AdvInfo = ({ namePage, adId }: Page) => {
 
         <S.AdvMain>
           <S.AdvTitle>{currentAdv?.title}</S.AdvTitle>
-          <S.AdvP>{currentAdv?.created_on}</S.AdvP>
+          {currentAdv && <S.AdvP>{formatDate(currentAdv?.created_on)}</S.AdvP>}
           <S.AdvP>{currentAdv?.user?.city}</S.AdvP>
           <S.AdvReviews>
             <S.AdvREviewLink onClick={showReviewsPopup}>
@@ -79,8 +85,8 @@ const AdvInfo = ({ namePage, adId }: Page) => {
           <S.AdvPrice>{currentAdv?.price} P</S.AdvPrice>
           {namePage === ADV_PAGE ? (
             <div className="adv__description_buttons">
-              <S.AdvButton>
-                Показать телефон {currentAdv?.user?.phone}
+              <S.AdvButton onClick={showPhoneNumber}>
+                {!phoneNumber ? 'Показать телефон' : currentAdv?.user?.phone}
               </S.AdvButton>
             </div>
           ) : (
@@ -101,6 +107,7 @@ const AdvInfo = ({ namePage, adId }: Page) => {
             >
               <circle id="Ellipse 2" cx="20" cy="20" r="20" fill="#F0F0F0" />
             </svg>
+
             <S.AdvSellerInfo>
               <S.AdvSellerName>{currentAdv?.user?.name}</S.AdvSellerName>
               <S.AdvSellerDate>Продает товары с мая 2022</S.AdvSellerDate>

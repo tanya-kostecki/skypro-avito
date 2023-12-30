@@ -2,6 +2,7 @@ import React from 'react';
 import * as S from './products.styles';
 import ProductItem from './ProductItem';
 import { IAdv } from '../../types';
+import { formatDate } from '../../helpers/FormatDate';
 
 type PropsArr = {
   data: IAdv[];
@@ -17,7 +18,7 @@ const Products = ({ data }: PropsArr) => {
           price={product.price}
           images={product.images}
           user={product.user}
-          created_on={product.created_on}
+          created_on={formatDate(product.created_on)}
         />
       ))}
     </S.ProductsMain>

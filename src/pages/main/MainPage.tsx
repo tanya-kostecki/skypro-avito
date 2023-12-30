@@ -25,6 +25,7 @@ const MainPage = () => {
     };
     fetchData();
   }, []);
+  console.log(products)
 
   return (
     <div>
