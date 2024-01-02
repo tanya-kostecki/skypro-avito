@@ -24,7 +24,7 @@ interface IImg {
     url: string;
 }
 
-interface IUser {
+export interface IUser {
     id: number;
     name: string;
     email: string;
@@ -44,5 +44,5 @@ export interface IAdv {
     images: IImg[]; //
     user_id?: number; //
     created_on: string;
-    user?: IUser; //
+    user: IUser; //
 }

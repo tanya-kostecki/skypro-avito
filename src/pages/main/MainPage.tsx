@@ -8,8 +8,6 @@ import {
   ProductsTitle,
 } from '../../components/products/products.styles';
 import MobileFooter from '../../components/footer/MobileFooter';
-// import { getAdverts } from '../../api/AdvApi';
-// import { IAdv } from '../../types';
 import { useGetAdvertsQuery } from '../../services/adverts';
 
 const MainPage = () => {

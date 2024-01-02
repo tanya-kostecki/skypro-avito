@@ -1,10 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './navigation.styles';
 import { MAIN_PAGE } from '../header/Header';
 import { NavLink } from 'react-router-dom';
 import { Page } from '../../types';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { Filters, setFilteredAdverts, setFilters } from '../../store/slices/AdvertSlice';
+import { useGetAdvertsQuery } from '../../services/adverts';
 
 const Navigation = ({ namePage }: Page) => {
+  const filters = useAppSelector((state: { adverts: { filters: Filters; }; }) => state.adverts.filters);
+  const dispatch = useAppDispatch();
+
+  const search = (value: string) => {
+    dispatch(setFilters({ ...filters, searchValue: value, status: true }));
+  };
+
+  const { data: products } = useGetAdvertsQuery(null);
+  // let filteredAdverts = useAppSelector(
+  //   (state) => state.adverts.filteredAdverts,
+  // );
+
+  useEffect(() => {
+    if (products) {
+      let filteredAdverts = [...products];
+
+      if (filters.searchValue.length) {
+        filteredAdverts = [
+          ...products.filter((product: { title: string; }) =>
+            product.title
+              .toLowerCase()
+              .includes(filters.searchValue.toLowerCase()),
+          ),
+        ];
+
+        dispatch(setFilteredAdverts(filteredAdverts))
+      }
+    }
+  }, [filters]);
+
   return (
     <S.SearchBlockContainer>
       <S.SearchBlock>
@@ -25,7 +59,10 @@ const Navigation = ({ namePage }: Page) => {
 
         {namePage === MAIN_PAGE ? (
           <>
-            <S.SearchBlockInput placeholder="Поиск по объявлениям"></S.SearchBlockInput>
+            <S.SearchBlockInput
+              placeholder="Поиск по объявлениям"
+              onChange={(event) => search(event.target.value)}
+            ></S.SearchBlockInput>
             <S.SearchBlockButton>Найти</S.SearchBlockButton>
           </>
         ) : (
@@ -34,7 +71,6 @@ const Navigation = ({ namePage }: Page) => {
           </NavLink>
         )}
       </S.SearchBlock>
-
     </S.SearchBlockContainer>
   );
 };

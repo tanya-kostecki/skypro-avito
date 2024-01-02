@@ -13,8 +13,6 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
 
   const userAdverts = adverts?.filter((adv) => adv?.user_id === userId);
 
-  const currentSeller = adverts?.find((elem) => elem.id === userId);
-
   return (
     <ProductsContainer>
       {namePage === PROFILE_PAGE ? (
@@ -28,12 +26,14 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
         ) : null}
 
         <S.ProfileSettingsBlock>
-          <S.AvatarBlock>
-            <S.AvatarImg src={`${baseUrl}${currentSeller?.user?.avatar}`} />
-            {namePage === PROFILE_PAGE ? (
-              <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
-            ) : null}
-          </S.AvatarBlock>
+          {userAdverts && (
+            <S.AvatarBlock>
+              <S.AvatarImg src={`${baseUrl}${userAdverts[0]?.user?.avatar}`} />
+              {namePage === PROFILE_PAGE ? (
+                <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
+              ) : null}
+            </S.AvatarBlock>
+          )}
 
           {namePage === PROFILE_PAGE ? (
             <S.InputBlock>
@@ -59,8 +59,15 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
             </S.InputBlock>
           ) : (
             <S.InputBlock>
-              <S.SellerName>{currentSeller?.user?.name}</S.SellerName>
-              <S.SellerAddInfo>{currentSeller?.user?.city}</S.SellerAddInfo>
+              {userAdverts && (
+                <>
+                  <S.SellerName>{userAdverts[0]?.user?.name}</S.SellerName>
+                  <S.SellerAddInfo>
+                    {userAdverts[0]?.user?.city}
+                  </S.SellerAddInfo>
+                </>
+              )}
+
               <S.SellerAddInfo>Продает товары с августа 2021</S.SellerAddInfo>
               <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
             </S.InputBlock>
