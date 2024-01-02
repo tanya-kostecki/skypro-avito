@@ -3,10 +3,20 @@ import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
 import { ProductsTitle } from '../products/products.styles';
 import { PROFILE_PAGE } from '../../constants/pagesConst';
-import { Page } from '../../types';
+import { IAdv, Page } from '../../types';
+import { useGetAdvertsQuery } from '../../services/adverts';
 // import Products from '../products/Products';
 
-const ProfileInfo = ({ namePage }: Page) => {
+const ProfileInfo = ({ namePage, userId }: Page) => {
+  //
+  // const { data: adverts } = useGetAdvertsQuery(null)
+
+  // console.log(adverts)
+
+  // const userAdverts = adverts?.filter((adv) => adv?.user_id === userId)
+  // console.log('user', userAdverts)
+  //
+
   return (
     <ProductsContainer>
       {namePage === PROFILE_PAGE ? (

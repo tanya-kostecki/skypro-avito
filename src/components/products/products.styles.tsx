@@ -9,8 +9,7 @@ export const ProductsContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    position: relative;
+    padding-top: 60px;
     z-index: -1;
     top: 40px;
   }

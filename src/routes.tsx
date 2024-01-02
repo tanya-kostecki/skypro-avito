@@ -18,7 +18,7 @@ const AppRoutes = () => {
       <Route path="/profile" element={<ProfilePage />}></Route>
       <Route path="/login" element={<AuthPage isLoginMode={true} />}></Route>
       <Route path="/signup" element={<AuthPage isLoginMode={false} />}></Route>
-      <Route path="/seller-profile" element={<SellerProfilePage />}></Route>
+      <Route path="/seller-profile/:id" element={<SellerProfilePage />}></Route>
       <Route path="/adv/:id" element={<AdvPage />}></Route>
       <Route path="/my-adv" element={<MyAdvPage />}></Route>
       {screenSize.width < 481 ? (

@@ -1,31 +1,19 @@
-import React, { useState, useEffect} from 'react'
-import Header, { MAIN_PAGE } from '../../components/header/Header'
-import Navigation from '../../components/navigation/Navigation'
-import Products from '../../components/products/Products'
+import React from 'react';
+import Header, { MAIN_PAGE } from '../../components/header/Header';
+import Navigation from '../../components/navigation/Navigation';
+import Products from '../../components/products/Products';
 import { Container } from '../../globalStyles/GlobalStyles';
 import {
   ProductsContainer,
   ProductsTitle,
 } from '../../components/products/products.styles';
 import MobileFooter from '../../components/footer/MobileFooter';
-import { getAdverts } from '../../api/AdvApi';
-import { IAdv } from '../../types';
+// import { getAdverts } from '../../api/AdvApi';
+// import { IAdv } from '../../types';
+import { useGetAdvertsQuery } from '../../services/adverts';
 
 const MainPage = () => {
-  const [products, setProducts] = useState<IAdv[]>([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAdverts();
-        setProducts(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-  console.log(products)
+  const { data: products } = useGetAdvertsQuery(null);
 
   return (
     <div>
@@ -34,12 +22,12 @@ const MainPage = () => {
       <Container>
         <ProductsContainer>
           <ProductsTitle>Объявления</ProductsTitle>
-          <Products data={products}/>
+          <Products products={products} />
         </ProductsContainer>
       </Container>
       <MobileFooter />
     </div>
   );
-}
+};
 
-export default MainPage
+export default MainPage;

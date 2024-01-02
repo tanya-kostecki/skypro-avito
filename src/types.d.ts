@@ -1,6 +1,7 @@
 interface Page {
     namePage: string;
     adId?: number;
+    userId?: number
 }
 
 interface Props {

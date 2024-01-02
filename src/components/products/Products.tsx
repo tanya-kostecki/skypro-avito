@@ -5,12 +5,12 @@ import { IAdv } from '../../types';
 import { formatDate } from '../../helpers/FormatDate';
 
 type PropsArr = {
-  data: IAdv[];
+  products: IAdv[] | undefined;
 };
-const Products = ({ data }: PropsArr) => {
+const Products = ({ products }: PropsArr) => {
   return (
     <S.ProductsMain>
-      {data?.map((product) => (
+      {products?.map((product) => (
         <ProductItem
           key={product.id}
           id={product.id}

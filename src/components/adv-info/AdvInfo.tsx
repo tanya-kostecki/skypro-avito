@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from './adv.styles';
 import { ADV_PAGE } from '../../constants/pagesConst';
 import AdvSettings from '../modals/adv-settings/AdvSettings';
@@ -6,9 +6,10 @@ import Reviews from '../modals/reviews/Reviews';
 import useGetWindowWidth from '../../hooks/WindowWidth';
 import { useNavigate } from 'react-router-dom';
 import { Page } from '../../types';
-import { baseUrl, getAdverts } from '../../api/AdvApi';
-import { IAdv } from '../../types';
+import { baseUrl } from '../../api/AdvApi';
 import { formatDate } from '../../helpers/FormatDate';
+import { useGetAdvertsQuery } from '../../services/adverts';
+import { Link } from 'react-router-dom';
 
 const AdvInfo = ({ namePage, adId }: Page) => {
   const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
@@ -33,23 +34,11 @@ const AdvInfo = ({ namePage, adId }: Page) => {
     }
   };
 
-  const [adv, setAdv] = useState<IAdv[]>([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAdverts();
-        setAdv(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data: adv } = useGetAdvertsQuery(null);
 
-  const currentAdv = adv.find((elem) => elem.id === adId);
+  const currentAdv = adv?.find((elem) => elem.id === adId);
 
   const [phoneNumber, setPhoneNumber] = useState<boolean>(false);
-
   const showPhoneNumber = () => {
     setPhoneNumber(true);
   };
@@ -108,10 +97,12 @@ const AdvInfo = ({ namePage, adId }: Page) => {
               <circle id="Ellipse 2" cx="20" cy="20" r="20" fill="#F0F0F0" />
             </svg>
 
-            <S.AdvSellerInfo>
-              <S.AdvSellerName>{currentAdv?.user?.name}</S.AdvSellerName>
-              <S.AdvSellerDate>Продает товары с мая 2022</S.AdvSellerDate>
-            </S.AdvSellerInfo>
+            <Link to={`/seller-profile/${currentAdv?.user?.id}`}>
+              <S.AdvSellerInfo>
+                <S.AdvSellerName>{currentAdv?.user?.name}</S.AdvSellerName>
+                <S.AdvSellerDate>Продает товары с мая 2022</S.AdvSellerDate>
+              </S.AdvSellerInfo>
+            </Link>
           </S.AdvSeller>
         </S.AdvMain>
       </S.Adv>
