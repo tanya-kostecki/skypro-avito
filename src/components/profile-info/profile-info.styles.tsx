@@ -27,7 +27,7 @@ export const ProfileIntoTitle = styled.h2`
       transform: rotate(-45deg);
       position: absolute;
       cursor: pointer;
-      top: 40px;
+      top: 80px;
       left: 40px;
     }
   }
@@ -82,6 +82,11 @@ export const AvatarBlock = styled.div`
     align-items: center;
   }
 `;
+export const AvatarImg = styled.img`
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+`
 export const ChangeAvatar = styled.a`
   color: #009ee4;
   font-family: Roboto;

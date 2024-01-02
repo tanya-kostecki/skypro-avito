@@ -3,19 +3,17 @@ import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
 import { ProductsTitle } from '../products/products.styles';
 import { PROFILE_PAGE } from '../../constants/pagesConst';
-import { IAdv, Page } from '../../types';
+import { Page } from '../../types';
 import { useGetAdvertsQuery } from '../../services/adverts';
-// import Products from '../products/Products';
+import Products from '../products/Products';
+import { baseUrl } from '../../api/AdvApi';
 
 const ProfileInfo = ({ namePage, userId }: Page) => {
-  //
-  // const { data: adverts } = useGetAdvertsQuery(null)
+  const { data: adverts } = useGetAdvertsQuery(null);
 
-  // console.log(adverts)
+  const userAdverts = adverts?.filter((adv) => adv?.user_id === userId);
 
-  // const userAdverts = adverts?.filter((adv) => adv?.user_id === userId)
-  // console.log('user', userAdverts)
-  //
+  const currentSeller = adverts?.find((elem) => elem.id === userId);
 
   return (
     <ProductsContainer>
@@ -31,15 +29,7 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
 
         <S.ProfileSettingsBlock>
           <S.AvatarBlock>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="170"
-              height="170"
-              viewBox="0 0 170 170"
-              fill="none"
-            >
-              <circle cx="85" cy="85" r="85" fill="#F0F0F0" />
-            </svg>
+            <S.AvatarImg src={`${baseUrl}${currentSeller?.user?.avatar}`} />
             {namePage === PROFILE_PAGE ? (
               <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
             ) : null}
@@ -69,8 +59,8 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
             </S.InputBlock>
           ) : (
             <S.InputBlock>
-              <S.SellerName>Кирилл Матвеев</S.SellerName>
-              <S.SellerAddInfo>Санкт-Петербург</S.SellerAddInfo>
+              <S.SellerName>{currentSeller?.user?.name}</S.SellerName>
+              <S.SellerAddInfo>{currentSeller?.user?.city}</S.SellerAddInfo>
               <S.SellerAddInfo>Продает товары с августа 2021</S.SellerAddInfo>
               <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
             </S.InputBlock>
@@ -85,7 +75,7 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
         <ProductsTitle>Товары продавца</ProductsTitle>
       )}
 
-      {/* <Products/> */}
+      <Products products={userAdverts} />
     </ProductsContainer>
   );
 };
