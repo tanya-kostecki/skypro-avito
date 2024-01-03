@@ -1,5 +1,7 @@
 interface Page {
     namePage: string;
+    adId?: number;
+    userId?: number
 }
 
 interface Props {
@@ -8,10 +10,39 @@ interface Props {
     password?: string;
 }
 
-interface Product {
+// interface Product {
+//     id: number;
+//     descriptionTitle: string;
+//     price: string;
+//     city: string;
+//     date: string;
+// }
+//
+interface IImg {
     id: number;
-    descriptionTitle: string;
-    price: string;
+    ad_id: number;
+    url: string;
+}
+
+export interface IUser {
+    id: number;
+    name: string;
+    email: string;
     city: string;
-    date: string;
+    avatar: string;
+    sells_from: string;
+    phone: string;
+    role: string;
+    surname: string;
+}
+
+export interface IAdv {
+    title: string;
+    description?: string; //
+    price: number;
+    id: number;
+    images: IImg[]; //
+    user_id?: number; //
+    created_on: string;
+    user: IUser; //
 }

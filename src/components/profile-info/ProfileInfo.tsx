@@ -1,14 +1,20 @@
 import React from 'react';
-import { Container } from '../products/products.styles';
+import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
-import { ProductsTitle, ProductsMain } from '../products/products.styles';
-import { myProducts } from '../../constants/myProductsConst';
-import ProductItem from '../products/ProductItem';
+import { ProductsTitle } from '../products/products.styles';
 import { PROFILE_PAGE } from '../../constants/pagesConst';
+import { Page } from '../../types';
+import { useGetAdvertsQuery } from '../../services/adverts';
+import Products from '../products/Products';
+import { baseUrl } from '../../api/AdvApi';
 
-const ProfileInfo = ({ namePage }: Page) => {
+const ProfileInfo = ({ namePage, userId }: Page) => {
+  const { data: adverts } = useGetAdvertsQuery(null);
+
+  const userAdverts = adverts?.filter((adv) => adv?.user_id === userId);
+
   return (
-    <Container>
+    <ProductsContainer>
       {namePage === PROFILE_PAGE ? (
         <S.ProfileIntoTitle>Здравствуйте, Антон!</S.ProfileIntoTitle>
       ) : (
@@ -20,20 +26,14 @@ const ProfileInfo = ({ namePage }: Page) => {
         ) : null}
 
         <S.ProfileSettingsBlock>
-          <S.AvatarBlock>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="170"
-              height="170"
-              viewBox="0 0 170 170"
-              fill="none"
-            >
-              <circle cx="85" cy="85" r="85" fill="#F0F0F0" />
-            </svg>
-            {namePage === PROFILE_PAGE ? (
-              <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
-            ) : null}
-          </S.AvatarBlock>
+          {userAdverts && (
+            <S.AvatarBlock>
+              <S.AvatarImg src={`${baseUrl}${userAdverts[0]?.user?.avatar}`} />
+              {namePage === PROFILE_PAGE ? (
+                <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
+              ) : null}
+            </S.AvatarBlock>
+          )}
 
           {namePage === PROFILE_PAGE ? (
             <S.InputBlock>
@@ -59,8 +59,15 @@ const ProfileInfo = ({ namePage }: Page) => {
             </S.InputBlock>
           ) : (
             <S.InputBlock>
-              <S.SellerName>Кирилл Матвеев</S.SellerName>
-              <S.SellerAddInfo>Санкт-Петербург</S.SellerAddInfo>
+              {userAdverts && (
+                <>
+                  <S.SellerName>{userAdverts[0]?.user?.name}</S.SellerName>
+                  <S.SellerAddInfo>
+                    {userAdverts[0]?.user?.city}
+                  </S.SellerAddInfo>
+                </>
+              )}
+
               <S.SellerAddInfo>Продает товары с августа 2021</S.SellerAddInfo>
               <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
             </S.InputBlock>
@@ -75,19 +82,8 @@ const ProfileInfo = ({ namePage }: Page) => {
         <ProductsTitle>Товары продавца</ProductsTitle>
       )}
 
-      <ProductsMain>
-        {myProducts.map((myProduct) => (
-          <ProductItem
-            key={myProduct.id}
-            descriptionTitle={myProduct.descriptionTitle}
-            price={myProduct.price}
-            city={myProduct.city}
-            date={myProduct.date}
-            id={0}
-          />
-        ))}
-      </ProductsMain>
-    </Container>
+      <Products products={userAdverts} />
+    </ProductsContainer>
   );
 };
 

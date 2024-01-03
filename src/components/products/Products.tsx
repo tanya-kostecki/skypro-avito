@@ -1,25 +1,54 @@
 import React from 'react';
 import * as S from './products.styles';
 import ProductItem from './ProductItem';
-import { products } from '../../constants/productsConst';
+import { IAdv } from '../../types';
+import { formatDate } from '../../helpers/FormatDate';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { Filters } from '../../store/slices/AdvertSlice';
 
-const Products = () => {
+type PropsArr = {
+  products: IAdv[] | undefined;
+};
+const Products = ({ products }: PropsArr) => {
+  const filters = useAppSelector(
+    (state: { adverts: { filters: Filters } }) => state.adverts.filters,
+  );
+  const filteredAdverts = useAppSelector(
+    (state) => state.adverts.filteredAdverts,
+  );
+  
   return (
-    <S.Container>
-      <S.ProductsTitle>Объявления</S.ProductsTitle>
+    <>
+    {filters.status && filters.searchValue.length ? (
       <S.ProductsMain>
-        {products.map((product) => (
-          <ProductItem
-            key={product.id}
-            id={product.id}
-            descriptionTitle={product.descriptionTitle}
-            price={product.price}
-            city={product.city}
-            date={product.date}
-          />
-        ))}
-      </S.ProductsMain>
-    </S.Container>
+      {filteredAdverts?.map((product) => (
+        <ProductItem
+          key={product.id}
+          id={product.id}
+          title={product.title}
+          price={product.price}
+          images={product.images}
+          user={product.user}
+          created_on={formatDate(product.created_on)}
+        />
+      ))}
+    </S.ProductsMain>
+    ) : (
+      <S.ProductsMain>
+      {products?.map((product) => (
+        <ProductItem
+          key={product.id}
+          id={product.id}
+          title={product.title}
+          price={product.price}
+          images={product.images}
+          user={product.user}
+          created_on={formatDate(product.created_on)}
+        />
+      ))}
+    </S.ProductsMain>
+    )}
+    </>
   );
 };
 

@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './header.styles'
 import { NavLink } from 'react-router-dom';
 import { MAIN_PAGE } from '../../constants/pagesConst';
+import AddNewAdv from '../add-adv/addNewAdv';
 export { MAIN_PAGE } from '../../constants/pagesConst';
+import { Page } from '../../types';
 
 const Header = ({ namePage }: Page) => {
+  const [newAdv, setNewAdv] = useState<boolean>(false)
+
+  const openNewAdv = () => {
+    setNewAdv(true)
+  }
   return (
     <S.Header>
       <S.HeaderNav> 
@@ -16,7 +23,7 @@ const Header = ({ namePage }: Page) => {
             </NavLink>
           ) : (
             <S.Authorized>
-              <S.HeaderButton className="header__button">
+              <S.HeaderButton className="header__button" onClick={openNewAdv}>
                 Разместить объявление
               </S.HeaderButton>
               <S.HeaderButton className="header__button">
@@ -28,6 +35,7 @@ const Header = ({ namePage }: Page) => {
             </S.Authorized>
           )}
       </S.HeaderNav>
+      {newAdv ? (<AddNewAdv setNewAdv={setNewAdv}/>) : null}
     </S.Header>
   );
 }

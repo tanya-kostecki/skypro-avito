@@ -2,6 +2,11 @@ import React from "react";
 import { Link, NavLink ,useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
+import MobileFooter from "../../components/footer/MobileFooter";
+import Navigation from "../../components/navigation/Navigation";
+import { AUTH_PAGE } from "../../constants/pagesConst";
+import useGetWindowWidth from "../../hooks/WindowWidth";
+import { Props } from "../../types";
 
 function AuthPage({ isLoginMode = false }: Props) {
   const [error, setError] = useState('');
@@ -68,8 +73,14 @@ function AuthPage({ isLoginMode = false }: Props) {
     setError('');
   }, [isLoginMode, email, password, repeatPassword]);
 
+  const screenSize = useGetWindowWidth()
+
   return (
     <S.PageContainer>
+      {screenSize.width < 481 ? (
+        <Navigation namePage={AUTH_PAGE}/>
+      ) : null}
+      
       <S.ModalForm>
         <Link to="/login">
           <S.ModalLogo>
@@ -157,6 +168,7 @@ function AuthPage({ isLoginMode = false }: Props) {
           </>
         )}
       </S.ModalForm>
+      <MobileFooter/>
     </S.PageContainer>
   )
 }
