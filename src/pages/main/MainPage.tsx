@@ -9,9 +9,10 @@ import {
 } from '../../components/products/products.styles';
 import MobileFooter from '../../components/footer/MobileFooter';
 import { useGetAdvertsQuery } from '../../services/adverts';
+import Loader from '../../components/loader/Loader';
 
 const MainPage = () => {
-  const { data: products } = useGetAdvertsQuery(null);
+  const { data: products, isLoading } = useGetAdvertsQuery(null);
 
   return (
     <div>
@@ -20,7 +21,7 @@ const MainPage = () => {
       <Container>
         <ProductsContainer>
           <ProductsTitle>Объявления</ProductsTitle>
-          <Products products={products} />
+          {isLoading ? <Loader /> : <Products products={products} />}
         </ProductsContainer>
       </Container>
       <MobileFooter />

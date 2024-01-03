@@ -87,16 +87,7 @@ const AdvInfo = ({ namePage, adId }: Page) => {
             </S.AdvButtons>
           )}
           <S.AdvSeller>
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle id="Ellipse 2" cx="20" cy="20" r="20" fill="#F0F0F0" />
-            </svg>
-
+            <S.AdvSellerImg src={`${baseUrl}${currentAdv?.user?.avatar}`}/>
             <Link to={`/seller-profile/${currentAdv?.user?.id}`}>
               <S.AdvSellerInfo>
                 <S.AdvSellerName>{currentAdv?.user?.name}</S.AdvSellerName>

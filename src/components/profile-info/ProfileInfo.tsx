@@ -7,9 +7,10 @@ import { Page } from '../../types';
 import { useGetAdvertsQuery } from '../../services/adverts';
 import Products from '../products/Products';
 import { baseUrl } from '../../api/AdvApi';
+import { Loader } from '../loader/loader.styles';
 
 const ProfileInfo = ({ namePage, userId }: Page) => {
-  const { data: adverts } = useGetAdvertsQuery(null);
+  const { data: adverts, isLoading } = useGetAdvertsQuery(null);
 
   const userAdverts = adverts?.filter((adv) => adv?.user_id === userId);
 
@@ -20,69 +21,79 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
       ) : (
         <S.ProfileIntoTitle>Профиль продавца</S.ProfileIntoTitle>
       )}
-      <S.ProfileSettings>
-        {namePage === PROFILE_PAGE ? (
-          <S.ProfileSettingsTitle>Настройки профиля</S.ProfileSettingsTitle>
-        ) : null}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <S.ProfileSettings>
+            {namePage === PROFILE_PAGE ? (
+              <S.ProfileSettingsTitle>Настройки профиля</S.ProfileSettingsTitle>
+            ) : null}
 
-        <S.ProfileSettingsBlock>
-          {userAdverts && (
-            <S.AvatarBlock>
-              <S.AvatarImg src={`${baseUrl}${userAdverts[0]?.user?.avatar}`} />
-              {namePage === PROFILE_PAGE ? (
-                <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
-              ) : null}
-            </S.AvatarBlock>
-          )}
-
-          {namePage === PROFILE_PAGE ? (
-            <S.InputBlock>
-              <S.InputNameSurname>
-                <S.InputBlockName>
-                  <S.InputBlockLabel>Имя</S.InputBlockLabel>
-                  <S.NameInput />
-                </S.InputBlockName>
-                <S.InputBlockName>
-                  <S.InputBlockLabel>Фамилия</S.InputBlockLabel>
-                  <S.NameInput />
-                </S.InputBlockName>
-              </S.InputNameSurname>
-              <S.InputBlockName>
-                <S.InputBlockLabel>Город</S.InputBlockLabel>
-                <S.NameInput />
-              </S.InputBlockName>
-              <S.InputBlockName>
-                <S.InputBlockLabel>Телефон</S.InputBlockLabel>
-                <S.InputPhone />
-              </S.InputBlockName>
-              <S.SaveButton>Сохранить</S.SaveButton>
-            </S.InputBlock>
-          ) : (
-            <S.InputBlock>
+            <S.ProfileSettingsBlock>
               {userAdverts && (
-                <>
-                  <S.SellerName>{userAdverts[0]?.user?.name}</S.SellerName>
-                  <S.SellerAddInfo>
-                    {userAdverts[0]?.user?.city}
-                  </S.SellerAddInfo>
-                </>
+                <S.AvatarBlock>
+                  <S.AvatarImg
+                    src={`${baseUrl}${userAdverts[0]?.user?.avatar}`}
+                  />
+                  {namePage === PROFILE_PAGE ? (
+                    <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
+                  ) : null}
+                </S.AvatarBlock>
               )}
 
-              <S.SellerAddInfo>Продает товары с августа 2021</S.SellerAddInfo>
-              <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
-            </S.InputBlock>
+              {namePage === PROFILE_PAGE ? (
+                <S.InputBlock>
+                  <S.InputNameSurname>
+                    <S.InputBlockName>
+                      <S.InputBlockLabel>Имя</S.InputBlockLabel>
+                      <S.NameInput />
+                    </S.InputBlockName>
+                    <S.InputBlockName>
+                      <S.InputBlockLabel>Фамилия</S.InputBlockLabel>
+                      <S.NameInput />
+                    </S.InputBlockName>
+                  </S.InputNameSurname>
+                  <S.InputBlockName>
+                    <S.InputBlockLabel>Город</S.InputBlockLabel>
+                    <S.NameInput />
+                  </S.InputBlockName>
+                  <S.InputBlockName>
+                    <S.InputBlockLabel>Телефон</S.InputBlockLabel>
+                    <S.InputPhone />
+                  </S.InputBlockName>
+                  <S.SaveButton>Сохранить</S.SaveButton>
+                </S.InputBlock>
+              ) : (
+                <S.InputBlock>
+                  {userAdverts && (
+                    <>
+                      <S.SellerName>{userAdverts[0]?.user?.name}</S.SellerName>
+                      <S.SellerAddInfo>
+                        {userAdverts[0]?.user?.city}
+                      </S.SellerAddInfo>
+                    </>
+                  )}
+
+                  <S.SellerAddInfo>
+                    Продает товары с августа 2021
+                  </S.SellerAddInfo>
+                  <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
+                </S.InputBlock>
+              )}
+
+              <S.SettingsBlockInputs></S.SettingsBlockInputs>
+            </S.ProfileSettingsBlock>
+          </S.ProfileSettings>
+          {namePage === PROFILE_PAGE ? (
+            <ProductsTitle>Мои товары</ProductsTitle>
+          ) : (
+            <ProductsTitle>Товары продавца</ProductsTitle>
           )}
 
-          <S.SettingsBlockInputs></S.SettingsBlockInputs>
-        </S.ProfileSettingsBlock>
-      </S.ProfileSettings>
-      {namePage === PROFILE_PAGE ? (
-        <ProductsTitle>Мои товары</ProductsTitle>
-      ) : (
-        <ProductsTitle>Товары продавца</ProductsTitle>
+          <Products products={userAdverts} />
+        </>
       )}
-
-      <Products products={userAdverts} />
     </ProductsContainer>
   );
 };

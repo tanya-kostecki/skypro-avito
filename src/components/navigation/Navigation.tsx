@@ -17,9 +17,6 @@ const Navigation = ({ namePage }: Page) => {
   };
 
   const { data: products } = useGetAdvertsQuery(null);
-  // let filteredAdverts = useAppSelector(
-  //   (state) => state.adverts.filteredAdverts,
-  // );
 
   useEffect(() => {
     if (products) {

@@ -12,7 +12,6 @@ const ProfilePage = () => {
       <Header namePage={PROFILE_PAGE} />
       <Navigation namePage={PROFILE_PAGE} />
       <Container>
-        {/* <Navigation namePage={PROFILE_PAGE} /> */}
         <ProfileInfo namePage={PROFILE_PAGE} />
       </Container>
       <MobileFooter/>
