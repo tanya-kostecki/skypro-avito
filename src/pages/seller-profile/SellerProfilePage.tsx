@@ -13,7 +13,7 @@ const SellerProfilePage = () => {
   
   return (
     <div>
-      <Header namePage={SELLER_PAGE} />
+      <Header />
       <Navigation namePage={SELLER_PAGE} />
       <Container>
         <ProfileInfo namePage={SELLER_PAGE} userId={userId} />

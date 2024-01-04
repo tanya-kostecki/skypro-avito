@@ -1,5 +1,6 @@
 import React from 'react';
-import Header, { MAIN_PAGE } from '../../components/header/Header';
+import Header from '../../components/header/Header';
+import { MAIN_PAGE } from '../../constants/pagesConst';
 import Navigation from '../../components/navigation/Navigation';
 import Products from '../../components/products/Products';
 import { Container } from '../../globalStyles/GlobalStyles';
@@ -16,7 +17,7 @@ const MainPage = () => {
 
   return (
     <div>
-      <Header namePage={MAIN_PAGE} />
+      <Header />
       <Navigation namePage={MAIN_PAGE} />
       <Container>
         <ProductsContainer>

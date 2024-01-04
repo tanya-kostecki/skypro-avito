@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink ,useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import Navigation from "../../components/navigation/Navigation";
 import { AUTH_PAGE } from "../../constants/pagesConst";
 import useGetWindowWidth from "../../hooks/WindowWidth";
 import { Props } from "../../types";
+import { UserContext } from "../../App";
 
 function AuthPage({ isLoginMode = false }: Props) {
   const [error, setError] = useState('');
@@ -19,6 +20,7 @@ function AuthPage({ isLoginMode = false }: Props) {
   const [isAuthProcess, setIsAuthProcess] = useState(false);
 
   const navigate = useNavigate();
+  const { setIsUser } = useContext(UserContext)
 
   const handleLogin = async ({ email, password }: Props) => {
     if(!email) {
@@ -29,6 +31,8 @@ function AuthPage({ isLoginMode = false }: Props) {
     } else {
       try {
         setIsAuthProcess(true)
+        localStorage.setItem('user', email)
+        setIsUser(true)
         navigate('/')
       } catch (error) {
         setError('error')
@@ -60,6 +64,8 @@ function AuthPage({ isLoginMode = false }: Props) {
     } else {
       try {
         setIsAuthProcess(true)
+        localStorage.setItem('user', email)
+        setIsUser(true)
         navigate('/')
       } catch (error) {
         setError('error')

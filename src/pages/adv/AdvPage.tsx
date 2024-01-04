@@ -13,7 +13,7 @@ const AdvPage = () => {
 
   return (
     <div>
-      <Header namePage={ADV_PAGE} />
+      <Header />
       <Navigation namePage={ADV_PAGE} />
       <Container>
         <AdvInfo namePage={ADV_PAGE} adId={adId}/>

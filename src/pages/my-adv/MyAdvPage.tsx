@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../../components/header/Header';
 import Navigation from '../../components/navigation/Navigation';
 import { Container } from '../../globalStyles/GlobalStyles';
 import AdvInfo from '../../components/adv-info/AdvInfo';
 import { MY_ADV } from '../../constants/pagesConst';
 import MobileFooter from '../../components/footer/MobileFooter';
+import { UserContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
 const MyAdvPage = () => {
+  const { isUser, setIsUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      setIsUser(true);
+    } else {
+      setIsUser(false);
+      navigate('/login');
+    }
+  }, []);
   return (
-    <div>
-      <Header namePage={MY_ADV} />
-      <Navigation namePage={MY_ADV}/>
-      <Container>
-        {/* <Navigation namePage={MY_ADV}/> */}
-        <AdvInfo namePage={MY_ADV}/>
-      </Container>
-      <MobileFooter/>
-    </div>
+    <>
+      {isUser && (
+        <div>
+          <Header />
+          <Navigation namePage={MY_ADV} />
+          <Container>
+            <AdvInfo namePage={MY_ADV} />
+          </Container>
+          <MobileFooter />
+        </div>
+      )}
+    </>
   );
 };
 

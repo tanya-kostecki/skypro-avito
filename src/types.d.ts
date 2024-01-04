@@ -28,12 +28,12 @@ export interface IUser {
     id: number;
     name: string;
     email: string;
-    city: string;
-    avatar: string;
-    sells_from: string;
-    phone: string;
-    role: string;
-    surname: string;
+    city?: string;
+    avatar?: string;
+    sells_from?: string;
+    phone?: string;
+    role?: string;
+    surname?: string;
 }
 
 export interface IAdv {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import * as S from './navigation.styles';
-import { MAIN_PAGE } from '../header/Header';
+import { MAIN_PAGE } from '../../constants/pagesConst';
 import { NavLink } from 'react-router-dom';
 import { Page } from '../../types';
 import { useAppSelector } from '../../hooks/useAppSelector';
