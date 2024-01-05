@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { advertReducer } from './slices/AdvertSlice';
 import { advertsApi } from '../services/adverts';
 import { userApi } from '../services/user';
-import { userReducer } from './slices/UserSlice';
+import { userReducer } from './slices/TokenSlice';
 
 export const store = configureStore({
   reducer: {

@@ -12,7 +12,7 @@ import {
   useGetAuthRegistrationMutation,
 } from '../../services/user';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { setToken } from '../../store/slices/UserSlice';
+import { setToken } from '../../store/slices/TokenSlice';
 
 function AuthPage({ isLoginMode = false }: Props) {
   const [error, setError] = useState('');
@@ -20,7 +20,9 @@ function AuthPage({ isLoginMode = false }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [name, setUsername] = useState('');
+  const [surname, setUserLastName] = useState('');
+  const [city, setUserCity] = useState('');
 
   const [isAuthProcess, setIsAuthProcess] = useState(false);
 
@@ -63,7 +65,7 @@ function AuthPage({ isLoginMode = false }: Props) {
   };
 
   const handleRegister = async () => {
-    if (!username) {
+    if (!name) {
       setError('Введите имя пользователя');
       return;
     } else if (!email) {
@@ -84,7 +86,7 @@ function AuthPage({ isLoginMode = false }: Props) {
     } else {
       try {
         setIsAuthProcess(true);
-        await RegisterApi({ email, password })
+        await RegisterApi({ email, password, name, city, surname })
           .unwrap()
           .then((data) => {
             console.log(data);
@@ -155,15 +157,6 @@ function AuthPage({ isLoginMode = false }: Props) {
               <S.ModalInput
                 type="text"
                 name="login"
-                placeholder="Имя"
-                value={username}
-                onChange={(event) => {
-                  setUsername(event.target.value);
-                }}
-              />
-              <S.ModalInput
-                type="text"
-                name="login"
                 placeholder="Почта"
                 value={email}
                 onChange={(event) => {
@@ -186,6 +179,33 @@ function AuthPage({ isLoginMode = false }: Props) {
                 value={repeatPassword}
                 onChange={(event) => {
                   setRepeatPassword(event.target.value);
+                }}
+              />
+              <S.ModalInput
+                type="text"
+                name="login"
+                placeholder="Имя"
+                value={name}
+                onChange={(event) => {
+                  setUsername(event.target.value);
+                }}
+              />
+              <S.ModalInput
+                type="text"
+                name="login"
+                placeholder="Фамилия (необязательно)"
+                value={surname}
+                onChange={(event) => {
+                  setUserLastName(event.target.value);
+                }}
+              />
+              <S.ModalInput
+                type="text"
+                name="login"
+                placeholder="Город (необязательно)"
+                value={city}
+                onChange={(event) => {
+                  setUserCity(event.target.value);
                 }}
               />
             </S.Inputs>

@@ -144,6 +144,7 @@ export const NameInput = styled.input`
   border-radius: 6px;
   border: 1px solid #009ee4;
   background: #fff;
+  padding-left: 20px;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 279px;

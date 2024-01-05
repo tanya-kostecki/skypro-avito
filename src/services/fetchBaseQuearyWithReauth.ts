@@ -1,5 +1,5 @@
 import { BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query';
-import { setRemoveToken, setToken } from '../store/slices/UserSlice';
+import { setRemoveToken, setToken } from '../store/slices/TokenSlice';
 import { RootState } from '../store/store';
 import { baseUrl } from '../api/AdvApi';
 

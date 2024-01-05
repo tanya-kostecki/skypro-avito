@@ -8,16 +8,23 @@ import { useGetAdvertsQuery } from '../../services/adverts';
 import Products from '../products/Products';
 import { baseUrl } from '../../api/AdvApi';
 import { Loader } from '../loader/loader.styles';
+import { useGetCurrentUserQuery } from '../../services/user';
 
 const ProfileInfo = ({ namePage, userId }: Page) => {
   const { data: adverts, isLoading } = useGetAdvertsQuery(null);
 
+  const { data: currentUser, isFetching } = useGetCurrentUserQuery(null)
+
   const userAdverts = adverts?.filter((adv) => adv?.user_id === userId);
+
+  if (isFetching) {
+    return <Loader/>
+  }
 
   return (
     <ProductsContainer>
-      {namePage === PROFILE_PAGE ? (
-        <S.ProfileIntoTitle>Здравствуйте, Антон!</S.ProfileIntoTitle>
+      {namePage === PROFILE_PAGE && currentUser ? (
+        <S.ProfileIntoTitle>Здравствуйте, {currentUser.name}!</S.ProfileIntoTitle>
       ) : (
         <S.ProfileIntoTitle>Профиль продавца</S.ProfileIntoTitle>
       )}
@@ -50,16 +57,23 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
                   <S.InputNameSurname>
                     <S.InputBlockName>
                       <S.InputBlockLabel>Имя</S.InputBlockLabel>
-                      <S.NameInput />
+                      {currentUser?.name ? (
+                        <S.NameInput defaultValue={currentUser.name}/>
+                      ) : <S.NameInput />}
+                      
                     </S.InputBlockName>
                     <S.InputBlockName>
                       <S.InputBlockLabel>Фамилия</S.InputBlockLabel>
-                      <S.NameInput />
+                      {currentUser?.surname ? (
+                        <S.NameInput defaultValue={currentUser.surname}/>
+                      ) : <S.NameInput />}
                     </S.InputBlockName>
                   </S.InputNameSurname>
                   <S.InputBlockName>
                     <S.InputBlockLabel>Город</S.InputBlockLabel>
-                    <S.NameInput />
+                    {currentUser?.city ? (
+                        <S.NameInput defaultValue={currentUser.city}/>
+                      ) : <S.NameInput />}
                   </S.InputBlockName>
                   <S.InputBlockName>
                     <S.InputBlockLabel>Телефон</S.InputBlockLabel>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import MainPage from './pages/main/MainPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import AuthPage from './pages/authorization/AuthPage';
@@ -10,12 +10,10 @@ import useGetWindowWidth from './hooks/WindowWidth';
 import AdvSettingsPage from './pages/adv/AdvSettingsPage';
 import ReviewsPage from './pages/reviews/ReviewsPage';
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
-import { UserContext } from './App';
 
 const AppRoutes = () => {
   const screenSize = useGetWindowWidth();
-  const isUser = useContext(UserContext);
-  console.log('isUser', isUser)
+
   return (
     <Routes>
       <Route path="/" element={<MainPage />}></Route>
@@ -24,11 +22,7 @@ const AppRoutes = () => {
       <Route path="/adv/:id" element={<AdvPage />}></Route>
       <Route path="/seller-profile/:id" element={<SellerProfilePage />}></Route>
 
-      <Route
-        element={
-          <ProtectedRoute redirectPath="/login" />
-        }
-      >
+      <Route element={<ProtectedRoute redirectPath="/login" />}>
         <Route path="/profile" element={<ProfilePage />}></Route>
         <Route path="/my-adv" element={<MyAdvPage />}></Route>
       </Route>
