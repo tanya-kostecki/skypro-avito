@@ -86,6 +86,7 @@ export const AvatarImg = styled.img`
   width: 170px;
   height: 170px;
   border-radius: 50%;
+  background-color: #F0F0F0;
 `
 export const ChangeAvatar = styled.a`
   color: #009ee4;

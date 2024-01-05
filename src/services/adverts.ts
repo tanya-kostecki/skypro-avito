@@ -1,12 +1,10 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { baseUrl } from '../api/AdvApi';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { IAdv } from '../types';
+import { baseQueryWithReauth } from './fetchBaseQuearyWithReauth';
 
 export const advertsApi = createApi({
   reducerPath: 'advertsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: baseUrl,
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Advert'],
   endpoints: (builder) => ({
     getAdverts: builder.query<IAdv[], null>({

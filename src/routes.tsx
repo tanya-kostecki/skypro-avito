@@ -26,7 +26,7 @@ const AppRoutes = () => {
 
       <Route
         element={
-          <ProtectedRoute isAllowed={Boolean(isUser)} redirectPath="/login" />
+          <ProtectedRoute redirectPath="/login" />
         }
       >
         <Route path="/profile" element={<ProfilePage />}></Route>

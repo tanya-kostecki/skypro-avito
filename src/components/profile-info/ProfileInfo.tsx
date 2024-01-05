@@ -33,9 +33,12 @@ const ProfileInfo = ({ namePage, userId }: Page) => {
             <S.ProfileSettingsBlock>
               {userAdverts && (
                 <S.AvatarBlock>
-                  <S.AvatarImg
-                    src={`${baseUrl}${userAdverts[0]?.user?.avatar}`}
-                  />
+                  {userAdverts[0]?.user?.avatar ? (
+                     <S.AvatarImg
+                     src={`${baseUrl}${userAdverts[0]?.user?.avatar}`}
+                   />
+                  ) : <S.AvatarImg />}
+                 
                   {namePage === PROFILE_PAGE ? (
                     <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
                   ) : null}
