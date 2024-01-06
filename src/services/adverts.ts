@@ -21,8 +21,16 @@ export const advertsApi = createApi({
         method: 'GET',
       }),
       providesTags: () => [{ type: 'Comment', id: 'LIST' }]
+    }),
+
+    getCommentsByAd: builder.query<IComment[], { pk: number }>({
+      query: (args) => ({
+        url: `/ads/${args.pk}/comments`,
+        method: 'GET',
+      }),
+      providesTags: () => [{ type: 'Comment', id: 'LIST' }]
     })
   }),
 });
 
-export const { useGetAdvertsQuery, useGetCommentsQuery } = advertsApi;
+export const { useGetAdvertsQuery, useGetCommentsQuery, useGetCommentsByAdQuery } = advertsApi;

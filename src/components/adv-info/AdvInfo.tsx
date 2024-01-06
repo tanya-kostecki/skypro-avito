@@ -4,7 +4,7 @@ import { ADV_PAGE } from '../../constants/pagesConst';
 import AdvSettings from '../modals/adv-settings/AdvSettings';
 import Reviews from '../modals/reviews/Reviews';
 import useGetWindowWidth from '../../hooks/WindowWidth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Page } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
 import { formatDate } from '../../helpers/FormatDate';
@@ -42,6 +42,9 @@ const AdvInfo = ({ namePage, adId }: Page) => {
   const showPhoneNumber = () => {
     setPhoneNumber(true);
   };
+
+  const params = useParams()
+  const advertId = Number(params.id)
 
   return (
     <S.AdvContainer>
@@ -111,7 +114,7 @@ const AdvInfo = ({ namePage, adId }: Page) => {
       {settingsPopup ? (
         <AdvSettings setSettingsPopup={setSettingsPopup} />
       ) : null}
-      {reviewsPopup ? <Reviews setReviewsPopup={setReviewsPopup} /> : null}
+      {reviewsPopup ? <Reviews adId={advertId} setReviewsPopup={setReviewsPopup} /> : null}
     </S.AdvContainer>
   );
 };

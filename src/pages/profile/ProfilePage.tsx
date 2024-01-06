@@ -7,7 +7,7 @@ import { Container } from '../../globalStyles/GlobalStyles';
 import MobileFooter from '../../components/footer/MobileFooter';
 
 const ProfilePage = () => {
-  const auth = localStorage.getItem('auth')
+  const auth = localStorage.getItem('auth');
 
   return (
     <>
@@ -16,7 +16,7 @@ const ProfilePage = () => {
           <Header />
           <Navigation namePage={PROFILE_PAGE} />
           <Container>
-            <ProfileInfo namePage={PROFILE_PAGE} />
+            <ProfileInfo />
           </Container>
           <MobileFooter />
         </div>

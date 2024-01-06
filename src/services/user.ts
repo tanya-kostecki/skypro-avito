@@ -49,8 +49,22 @@ export const userApi = createApi({
         mrthod: 'GET',
       }),
       providesTags: () => [{ type: 'User', id: 'ID' }],
-    })
+    }),
+
+    updateUserInfo: builder.mutation<IUser, {
+      name?: string;
+      surname?: string;
+      phone?: string;
+      city?: string;
+    }>({
+      query: (body) => ({
+        url: '/user',
+        method: 'PATCH',
+        body: body,
+      }),
+      invalidatesTags: () => [{ type: 'User', id: 'ID' }],
+    }),
   }),
 });
 
-export const { useGetAuthLoginMutation, useGetAuthRegistrationMutation, useGetCurrentUserQuery } = userApi;
+export const { useGetAuthLoginMutation, useGetAuthRegistrationMutation, useGetCurrentUserQuery, useUpdateUserInfoMutation } = userApi;

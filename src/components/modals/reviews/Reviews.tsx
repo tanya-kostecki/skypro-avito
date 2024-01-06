@@ -7,22 +7,21 @@ import {
   SettingsTitle,
   SettingsButton,
 } from '../adv-settings/settings.styles';
-import { useGetCommentsQuery } from '../../../services/adverts';
+import { useGetCommentsByAdQuery } from '../../../services/adverts';
 import { formatDate } from '../../../helpers/FormatDate';
 import { baseUrl } from '../../../api/AdvApi';
-// import { reviews } from '../../../constants/reviewsConst';
 
 type Props = {
   setReviewsPopup: (reviewsPopup: boolean) => void;
+  adId: number; //
 };
 
-const Reviews = ({ setReviewsPopup }: Props) => {
+const Reviews = ({ setReviewsPopup, adId }: Props) => {
   const closeReviewsPopup = () => {
     setReviewsPopup(false);
   };
 
-  const { data: reviews } = useGetCommentsQuery(null)
-  console.log('comments', reviews)
+  const { data: reviews } = useGetCommentsByAdQuery({ pk: adId })
 
   return (
     <S.ReviewsModal>
