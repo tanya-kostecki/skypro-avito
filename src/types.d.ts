@@ -10,14 +10,6 @@ interface Props {
     password?: string;
 }
 
-// interface Product {
-//     id: number;
-//     descriptionTitle: string;
-//     price: string;
-//     city: string;
-//     date: string;
-// }
-//
 interface IImg {
     id: number;
     ad_id: number;
@@ -38,11 +30,18 @@ export interface IUser {
 
 export interface IAdv {
     title: string;
-    description?: string; //
+    description?: string; 
     price: number;
     id: number;
-    images: IImg[]; //
-    user_id?: number; //
+    images: IImg[];
+    user_id?: number;
     created_on: string;
-    user: IUser; //
+    user: IUser;
+}
+
+export interface IComment {
+    id: number;
+    text: string;
+    created_on: string;
+    author: IUser;
 }

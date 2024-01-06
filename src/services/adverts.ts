@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IAdv } from '../types';
+import { IAdv, IComment } from '../types';
 import { baseQueryWithReauth } from './fetchBaseQuearyWithReauth';
 
 export const advertsApi = createApi({
   reducerPath: 'advertsApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Advert'],
+  tagTypes: ['Advert', 'Comment'],
   endpoints: (builder) => ({
     getAdverts: builder.query<IAdv[], null>({
       query: () => ({
@@ -14,7 +14,15 @@ export const advertsApi = createApi({
       }),
       providesTags: () => [{ type: 'Advert', id: 'LIST' }],
     }),
+
+    getComments: builder.query<IComment[], null>({
+      query: () => ({
+        url: '/comments',
+        method: 'GET',
+      }),
+      providesTags: () => [{ type: 'Comment', id: 'LIST' }]
+    })
   }),
 });
 
-export const { useGetAdvertsQuery } = advertsApi;
+export const { useGetAdvertsQuery, useGetCommentsQuery } = advertsApi;

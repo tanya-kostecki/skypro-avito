@@ -7,7 +7,10 @@ import {
   SettingsTitle,
   SettingsButton,
 } from '../adv-settings/settings.styles';
-import { reviews } from '../../../constants/reviewsConst';
+import { useGetCommentsQuery } from '../../../services/adverts';
+import { formatDate } from '../../../helpers/FormatDate';
+import { baseUrl } from '../../../api/AdvApi';
+// import { reviews } from '../../../constants/reviewsConst';
 
 type Props = {
   setReviewsPopup: (reviewsPopup: boolean) => void;
@@ -17,6 +20,9 @@ const Reviews = ({ setReviewsPopup }: Props) => {
   const closeReviewsPopup = () => {
     setReviewsPopup(false);
   };
+
+  const { data: reviews } = useGetCommentsQuery(null)
+  console.log('comments', reviews)
 
   return (
     <S.ReviewsModal>
@@ -36,10 +42,13 @@ const Reviews = ({ setReviewsPopup }: Props) => {
             </div>
             
               <S.ReviewsComment>
-              {reviews.map((review) => (
+              {reviews?.map((review) => (
                 <S.ReviewsTextBlock key={review.id}>
                   <div className="reviews-avatar">
-                    <svg
+                    {review.author.avatar ? (
+                      <S.ReviewsAvatar src={`${baseUrl}${review.author.avatar}`}/>
+                    ) : (
+                      <svg
                       width="40"
                       height="40"
                       viewBox="0 0 40 40"
@@ -54,10 +63,12 @@ const Reviews = ({ setReviewsPopup }: Props) => {
                         fill="#F0F0F0"
                       />
                     </svg>
+                    )}
+                    
                   </div>
                   <div className="reviews-text-info">
-                    <S.ReviewsName>{review.name}</S.ReviewsName>&nbsp;
-                    <S.ReviewsDate>{review.date}</S.ReviewsDate>
+                    <S.ReviewsName>{review.author.name}</S.ReviewsName>&nbsp;
+                    <S.ReviewsDate>{formatDate(review.created_on)}</S.ReviewsDate>
                     <S.Comment>Комментарий</S.Comment>
                     <p className="comment-text">{review.text} </p>
                   </div>

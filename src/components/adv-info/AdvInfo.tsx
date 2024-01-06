@@ -68,7 +68,7 @@ const AdvInfo = ({ namePage, adId }: Page) => {
           <S.AdvP>{currentAdv?.user?.city}</S.AdvP>
           <S.AdvReviews>
             <S.AdvREviewLink onClick={showReviewsPopup}>
-              23 отзыва
+              Отзывы
             </S.AdvREviewLink>
           </S.AdvReviews>
           <S.AdvPrice>{currentAdv?.price} P</S.AdvPrice>
@@ -87,7 +87,12 @@ const AdvInfo = ({ namePage, adId }: Page) => {
             </S.AdvButtons>
           )}
           <S.AdvSeller>
-            <S.AdvSellerImg src={`${baseUrl}${currentAdv?.user?.avatar}`}/>
+            {currentAdv?.user?.avatar ? (
+              <S.AdvSellerImg src={`${baseUrl}${currentAdv?.user?.avatar}`} />
+            ) : (
+              <S.AdvSellerImg />
+            )}
+
             <Link to={`/seller-profile/${currentAdv?.user?.id}`}>
               <S.AdvSellerInfo>
                 <S.AdvSellerName>{currentAdv?.user?.name}</S.AdvSellerName>
