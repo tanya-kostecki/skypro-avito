@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProductsContainer } from '../products/products.styles';
-import * as S from '../profile-info/profile-info.styles';
+import * as S from './profile-info.styles';
 import { ProductsTitle } from '../products/products.styles';
 import { useGetAdvertsQuery } from '../../services/adverts';
 import Products from '../products/Products';

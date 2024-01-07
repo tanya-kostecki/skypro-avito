@@ -113,6 +113,16 @@ export const InputBlock = styled.div`
     width: 100vw;
   }
 `;
+
+export const InputForm = styled.form`
+  @media screen and (max-width: ${$mobileWidth}) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+  }
+`;
 export const InputNameSurname = styled.div`
   display: flex;
   gap: 14px;
@@ -161,6 +171,7 @@ export const InputPhone = styled.input`
   border-radius: 6px;
   border: 1px solid #009ee4;
   background: #fff;
+  padding-left: 20px;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 279px;

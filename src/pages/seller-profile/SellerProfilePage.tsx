@@ -5,7 +5,7 @@ import Navigation from '../../components/navigation/Navigation';
 import { Container } from '../../globalStyles/GlobalStyles';
 import MobileFooter from '../../components/footer/MobileFooter';
 import { useParams } from 'react-router-dom';
-import SellerProfileInfo from '../../components/seller-profile-info/SellerProfileInfo';
+import SellerProfileInfo from '../../components/profile-info/SellerProfileInfo';
 
 const SellerProfilePage = () => {
   const params = useParams();
