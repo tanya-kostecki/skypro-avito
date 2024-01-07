@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
 import { ProductsTitle } from '../products/products.styles';
-import { useUpdateUserInfoMutation } from '../../services/user';
+import {
+  useUpdateUserInfoMutation,
+  useUploadUserAvatarMutation,
+} from '../../services/user';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { IUser } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
@@ -17,7 +20,6 @@ const ProfileInfo = ({ user }: Props) => {
     register,
     handleSubmit,
     formState: { isDirty, errors },
-    reset,
   } = useForm<IUser>({
     defaultValues: {
       name: user.name,
@@ -30,22 +32,25 @@ const ProfileInfo = ({ user }: Props) => {
   const [updateUserApi, { isLoading }] = useUpdateUserInfoMutation();
 
   const changeProfileInfo: SubmitHandler<IUser> = async (data) => {
-    const dataForm = {
-      name: data.name,
-      surname: data.surname,
-      city: data.city,
-      phone: data.phone,
-    };
     try {
-      await updateUserApi(dataForm).unwrap();
-      reset({
-        name: data.name,
-        surname: data.surname,
-        city: data.city,
-        phone: data.phone,
-      });
+      await updateUserApi(data).unwrap();
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const [avatar, setAvatar] = useState<string>(`${baseUrl}${user?.avatar}`);
+
+  const [uploadAvatarApi] = useUploadUserAvatarMutation();
+
+  const uploadAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setAvatar(url);
+      uploadAvatarApi(file).unwrap();
+      // console.log(event.target)
+      // console.log(event.target.files)
     }
   };
 
@@ -57,12 +62,16 @@ const ProfileInfo = ({ user }: Props) => {
         <S.ProfileSettingsTitle>Настройки профиля</S.ProfileSettingsTitle>
         <S.ProfileSettingsBlock>
           <S.AvatarBlock>
-            {user?.avatar ? (
-              <S.AvatarImg src={`${baseUrl}${user.avatar}`} />
-            ) : (
-              <S.AvatarImg />
-            )}
-            <S.ChangeAvatar href="#">Заменить</S.ChangeAvatar>
+            {user?.avatar ? <S.AvatarImg src={avatar} /> : <S.AvatarImg />}
+            <S.ChangeAvatar>Заменить
+              <S.ChangeAvatarInput
+                type="file"
+                accept="image/*"
+                id="avatar"
+                name="file"
+                onChange={(event) => uploadAvatar(event)}
+              ></S.ChangeAvatarInput>
+            </S.ChangeAvatar>
           </S.AvatarBlock>
           <S.InputForm onSubmit={handleSubmit(changeProfileInfo)}>
             <S.InputNameSurname>
@@ -95,7 +104,7 @@ const ProfileInfo = ({ user }: Props) => {
                 )}
               </S.InputBlockName>
             </S.InputNameSurname>
-            {errors.name && (<ErrorMessage message={errors.name.message}/>)}
+            {errors.name && <ErrorMessage message={errors.name.message} />}
             <S.InputBlockName>
               <S.InputBlockLabel>Город</S.InputBlockLabel>
               {user?.city ? (
@@ -121,7 +130,7 @@ const ProfileInfo = ({ user }: Props) => {
                 })}
               />
             </S.InputBlockName>
-            {errors.phone && (<ErrorMessage message={errors.phone.message}/>)}
+            {errors.phone && <ErrorMessage message={errors.phone.message} />}
             {isLoading ? (
               <S.SaveButton disabled={true} style={{ background: 'grey' }}>
                 ...Обновление

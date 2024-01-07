@@ -51,12 +51,15 @@ export const userApi = createApi({
       providesTags: () => [{ type: 'User', id: 'ID' }],
     }),
 
-    updateUserInfo: builder.mutation<IUser, {
-      name?: string;
-      surname?: string;
-      phone?: string;
-      city?: string;
-    }>({
+    updateUserInfo: builder.mutation<
+      IUser,
+      {
+        name?: string;
+        surname?: string;
+        phone?: string;
+        city?: string;
+      }
+    >({
       query: (body) => ({
         url: '/user',
         method: 'PATCH',
@@ -64,7 +67,22 @@ export const userApi = createApi({
       }),
       invalidatesTags: () => [{ type: 'User', id: 'ID' }],
     }),
+
+    uploadUserAvatar: builder.mutation<IUser, File | null>({
+      query: (data) => {
+        const formData = new FormData();
+        if (data) {
+          formData.append('file', data);
+        }
+        return {
+          url: '/user/avatar',
+          method: 'POST',
+          body: formData,
+        };
+      },
+      invalidatesTags: () => [{ type: 'User', id: 'ID' }],
+    }),
   }),
 });
 
-export const { useGetAuthLoginMutation, useGetAuthRegistrationMutation, useGetCurrentUserQuery, useUpdateUserInfoMutation } = userApi;
+export const { useGetAuthLoginMutation, useGetAuthRegistrationMutation, useGetCurrentUserQuery, useUpdateUserInfoMutation, useUploadUserAvatarMutation } = userApi;

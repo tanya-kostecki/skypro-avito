@@ -18,13 +18,10 @@ const ProfilePage = () => {
         <div>
           <Header />
           <Navigation namePage={PROFILE_PAGE} />
-          {isLoading ? (
-            <Loader />
-          ) : (
             <Container>
+              {isLoading && (<Loader/>)}
               {currentUser && <ProfileInfo user={currentUser} />}
             </Container>
-          )}
           <MobileFooter />
         </div>
       )}
