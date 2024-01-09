@@ -92,7 +92,11 @@ export const ReviewsInfo = styled.div`
     height: 828px;
   }
 `;
-
+export const ReviewsAvatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`;
 export const ReviewsComment = styled.div`
   display: flex;
   flex-direction: column;

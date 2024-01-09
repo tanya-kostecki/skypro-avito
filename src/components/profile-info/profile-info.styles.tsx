@@ -74,6 +74,7 @@ export const ProfileSettingsBlock = styled.div`
 
 export const AvatarBlock = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 10px;
   width: 100vw;
 
@@ -86,15 +87,21 @@ export const AvatarImg = styled.img`
   width: 170px;
   height: 170px;
   border-radius: 50%;
-`
-export const ChangeAvatar = styled.a`
+  background-color: #f0f0f0;
+`;
+export const ChangeAvatar = styled.button`
   color: #009ee4;
   font-family: Roboto;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   text-decoration: none;
+  border: none;
+  background-color: transparent;
 `;
+export const ChangeAvatarInput = styled.input`
+  opacity: 0;
+`
 
 export const SettingsBlockInputs = styled.div`
   display: flex;
@@ -104,6 +111,16 @@ export const SettingsBlockInputs = styled.div`
   width: 614px;
 `;
 export const InputBlock = styled.div`
+  @media screen and (max-width: ${$mobileWidth}) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+  }
+`;
+
+export const InputForm = styled.form`
   @media screen and (max-width: ${$mobileWidth}) {
     display: flex;
     flex-direction: column;
@@ -143,6 +160,7 @@ export const NameInput = styled.input`
   border-radius: 6px;
   border: 1px solid #009ee4;
   background: #fff;
+  padding-left: 20px;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 279px;
@@ -159,6 +177,7 @@ export const InputPhone = styled.input`
   border-radius: 6px;
   border: 1px solid #009ee4;
   background: #fff;
+  padding-left: 20px;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 279px;

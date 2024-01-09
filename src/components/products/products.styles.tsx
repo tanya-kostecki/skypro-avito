@@ -34,10 +34,10 @@ export const ProductsMain = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 26px;
-  align-items: center;
-  justify-content: center;
-
+  
   @media screen and (max-width: ${$mobileWidth}) {
+    align-items: center;
+    justify-content: center;
   }
 `;
 export const ProductItem = styled.div`
