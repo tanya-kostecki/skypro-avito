@@ -20,7 +20,7 @@ export const advertsApi = createApi({
         url: '/comments',
         method: 'GET',
       }),
-      providesTags: () => [{ type: 'Comment', id: 'LIST' }]
+      providesTags: () => [{ type: 'Comment', id: 'LIST' }],
     }),
 
     getCommentsByAd: builder.query<IComment[], { pk: number }>({
@@ -28,9 +28,25 @@ export const advertsApi = createApi({
         url: `/ads/${args.pk}/comments`,
         method: 'GET',
       }),
-      providesTags: () => [{ type: 'Comment', id: 'LIST' }]
-    })
+      providesTags: () => [{ type: 'Comment', id: 'LIST' }],
+    }),
+
+    addCommentsByAd: builder.mutation<IComment, { pk: number; text: string }>({
+      query: ({ pk, text }) => ({
+        url: `/ads/${pk}/comments`,
+        method: 'POST',
+        body: text,
+        headers: { 'content-type': 'application/json'},
+      }),
+      invalidatesTags: () => [{ type: 'Comment', id: 'ID' }],
+    }),
   }),
 });
 
-export const { useGetAdvertsQuery, useGetCommentsQuery, useGetCommentsByAdQuery } = advertsApi;
+export const {
+  useGetAdvertsQuery,
+  useGetCommentsQuery,
+  useGetCommentsByAdQuery,
+  useAddCommentsByAdMutation,
+  useLazyGetCommentsByAdQuery,
+} = advertsApi;

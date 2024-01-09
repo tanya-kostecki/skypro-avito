@@ -1,5 +1,5 @@
 import { BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query';
-import { setRemoveToken, setToken } from '../store/slices/TokenSlice';
+import { setToken } from '../store/slices/TokenSlice';
 import { RootState } from '../store/store';
 import { baseUrl } from '../api/AdvApi';
 
@@ -8,25 +8,25 @@ type RefreshTokenResponse = {
   refresh_token: string;
 };
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: baseUrl,
-  prepareHeaders: (headers, { getState }) => {
-    const accessToken = (getState() as RootState).user.accessToken;
-    if (accessToken) {
-      headers.set('Authorization', `Bearer ${accessToken}`);
-    }
-    return headers;
-  },
-});
-
 export const baseQueryWithReauth: BaseQueryFn = async (
   args,
   api,
   extraOptions,
 ) => {
+  const baseQuery = fetchBaseQuery({
+    baseUrl: baseUrl,
+    prepareHeaders: (headers, { getState }) => {
+      const accessToken = (getState() as RootState).user.accessToken;
+      if (accessToken) {
+        headers.set('Authorization', `Bearer ${accessToken}`);
+      }
+      return headers;
+    },
+  });
+
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result.error && 'status' in result.error && result.error.status === 401) {
+  if (result?.error?.status === 401) {
     const refreshResult = await baseQuery(
       {
         url: '/auth/login/',
@@ -49,10 +49,8 @@ export const baseQueryWithReauth: BaseQueryFn = async (
           refreshToken: refresh_token,
         }),
       );
+
       result = await baseQuery(args, api, extraOptions);
-    } else {
-        api.dispatch(setRemoveToken());
-        window.location.href = '/login'
     }
   }
 
