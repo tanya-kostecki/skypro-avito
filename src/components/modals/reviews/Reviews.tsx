@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './reviews.styles';
 import {
   CloseBlock,
@@ -9,29 +9,31 @@ import {
 } from '../adv-settings/settings.styles';
 import {
   useAddCommentsByAdMutation,
+  useLazyGetCommentsByAdQuery,
 } from '../../../services/adverts';
 import { formatDate } from '../../../helpers/FormatDate';
 import { baseUrl } from '../../../api/AdvApi';
 import { useForm } from 'react-hook-form';
 import { IComment } from '../../../types';
+import { ErrorMessage } from '../../error/ErrorMessage';
 
 type Props = {
   setReviewsPopup: (reviewsPopup: boolean) => void;
   adId: number;
-  reviews: IComment[] | undefined;
+  comments: IComment[] | undefined;
 };
 
 type CommentText = {
   text: string;
 };
-const Reviews = ({ setReviewsPopup, adId, reviews }: Props) => {
+const Reviews = ({ setReviewsPopup, adId, comments }: Props) => {
   const closeReviewsPopup = () => {
     setReviewsPopup(false);
   };
 
   const isAuth = localStorage.getItem('auth');
 
-  const [addCommentApi, {isLoading}] = useAddCommentsByAdMutation();
+  const [addCommentApi] = useAddCommentsByAdMutation();
 
   const {
     register,
@@ -40,17 +42,27 @@ const Reviews = ({ setReviewsPopup, adId, reviews }: Props) => {
     formState: { isDirty, errors },
   } = useForm<CommentText>();
 
+  const [reviews, setReviews] = useState<IComment[] | undefined>(comments);
+
+  const [getAllComments] = useLazyGetCommentsByAdQuery();
+
   const addNewComment = async (data: CommentText) => {
     try {
-      await addCommentApi({ pk: adId, text: data.text }).unwrap();
-      console.log('ok-result')
-      reset()
-   } catch (error) {
+      await addCommentApi({ pk: adId, text: data.text })
+        .unwrap()
+        .then(() => {
+          getAllComments({ pk: adId })
+            .unwrap()
+            .then((data) => {
+              setReviews(data);
+            });
+          reset();
+        });
+    } catch (error) {
       console.log(error);
     }
-    console.log(data)
+    console.log(data);
   };
-
 
   return (
     <S.ReviewsModal>
@@ -76,6 +88,9 @@ const Reviews = ({ setReviewsPopup, adId, reviews }: Props) => {
                   })}
                   as={'textarea'}
                 />
+                {errors.text && (
+                  <ErrorMessage message={errors.text.message}></ErrorMessage>
+                )}
                 <SettingsButton disabled={!isDirty}>
                   Опубликовать
                 </SettingsButton>

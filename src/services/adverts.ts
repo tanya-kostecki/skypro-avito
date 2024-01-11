@@ -38,6 +38,14 @@ export const advertsApi = createApi({
       invalidatesTags:() => [{ type: 'Advert', id: 'LIST'}],
     }),
 
+    getCurrentUserAdverts: builder.query<IAdv[], null>({
+      query: () => ({
+        url: `/ads/me`,
+        method: 'GET',
+      }),
+      providesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),
+
     addAdvWithoutImage: builder.mutation<IAdv, {
       title: string,
       description?: string,
@@ -71,6 +79,14 @@ export const advertsApi = createApi({
         };
       },
     }),
+
+    deleteAdvert: builder.mutation<void, number>({
+      query: (id) => ({
+        url: `/ads/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),    
 
     getComments: builder.query<IComment[], null>({
       query: () => ({
@@ -108,5 +124,7 @@ export const {
   useLazyGetCommentsByAdQuery,
   useAddAdvMutation,
   useAddImageToAdvMutation,
-  useAddAdvWithoutImageMutation
+  useAddAdvWithoutImageMutation,
+  useGetCurrentUserAdvertsQuery,
+  useDeleteAdvertMutation
 } = advertsApi;

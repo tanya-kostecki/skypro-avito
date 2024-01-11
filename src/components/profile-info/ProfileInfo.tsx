@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ProductsContainer } from '../products/products.styles';
 import * as S from './profile-info.styles';
 import { ProductsTitle } from '../products/products.styles';
+import Products from '../products/Products';
 import {
   useUpdateUserInfoMutation,
   useUploadUserAvatarMutation,
@@ -10,6 +11,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { IUser } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
 import { ErrorMessage } from '../error/ErrorMessage';
+import { useGetCurrentUserAdvertsQuery } from '../../services/adverts';
 
 interface Props {
   user: IUser;
@@ -49,10 +51,10 @@ const ProfileInfo = ({ user }: Props) => {
       const url = URL.createObjectURL(file);
       setAvatar(url);
       uploadAvatarApi(file).unwrap();
-      // console.log(event.target)
-      // console.log(event.target.files)
     }
   };
+
+  const { data: currentUserAdverts } = useGetCurrentUserAdvertsQuery(null);
 
   return (
     <ProductsContainer>
@@ -158,7 +160,7 @@ const ProfileInfo = ({ user }: Props) => {
       </S.ProfileSettings>
 
       <ProductsTitle>Мои товары</ProductsTitle>
-      {/* <Products products={userAdverts} /> */}
+      <Products products={currentUserAdverts} />
     </ProductsContainer>
   );
 };

@@ -31,6 +31,7 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
       .unwrap()
       .then((response) => {
         console.log('response-ok', response);
+        window.location.href = `/adv/${response.id}`
       });
   };
 

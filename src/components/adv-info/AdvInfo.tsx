@@ -8,6 +8,7 @@ import { Page } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
 import { formatDate } from '../../helpers/FormatDate';
 import {
+  useDeleteAdvertMutation,
   useGetAdvertsQuery,
   useGetCommentsByAdQuery,
 } from '../../services/adverts';
@@ -53,6 +54,13 @@ const AdvInfo = ({ adId }: Page) => {
   const { data: reviews } = useGetCommentsByAdQuery({ pk: advertId })
 
   const { data: currentUser } = useGetCurrentUserQuery(null)
+
+  const [deleteAdvApi] = useDeleteAdvertMutation()
+
+  const deleteAdvert = (id: number) => {
+    deleteAdvApi(id).unwrap();
+    window.location.href = '/profile'
+  }
 
   return (
     <>
@@ -102,7 +110,7 @@ const AdvInfo = ({ adId }: Page) => {
                   <S.AdvButton onClick={showSettingsPopup}>
                     Редактировать
                   </S.AdvButton>
-                  <S.AdvButton>Снять с публикации</S.AdvButton>
+                  <S.AdvButton onClick={() => deleteAdvert(advertId)}>Снять с публикации</S.AdvButton>
                 </S.AdvButtons>
               )}
               <S.AdvSeller>
@@ -136,7 +144,7 @@ const AdvInfo = ({ adId }: Page) => {
             <Reviews
               adId={advertId}
               setReviewsPopup={setReviewsPopup}
-              reviews={reviews}
+              comments={reviews}
             />
           ) : null}
         </S.AdvContainer>
