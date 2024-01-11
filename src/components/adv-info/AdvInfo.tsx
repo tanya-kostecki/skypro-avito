@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as S from './adv.styles';
-import { ADV_PAGE } from '../../constants/pagesConst';
 import AdvSettings from '../modals/adv-settings/AdvSettings';
 import Reviews from '../modals/reviews/Reviews';
 import useGetWindowWidth from '../../hooks/WindowWidth';
@@ -14,8 +13,9 @@ import {
 } from '../../services/adverts';
 import { Link } from 'react-router-dom';
 import { Loader } from '../loader/loader.styles';
+import { useGetCurrentUserQuery } from '../../services/user';
 
-const AdvInfo = ({ namePage, adId }: Page) => {
+const AdvInfo = ({ adId }: Page) => {
   const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
   const [reviewsPopup, setReviewsPopup] = useState<boolean>(false);
 
@@ -52,7 +52,8 @@ const AdvInfo = ({ namePage, adId }: Page) => {
 
   const { data: reviews } = useGetCommentsByAdQuery({ pk: advertId })
 
-  console.log(reviews)
+  const { data: currentUser } = useGetCurrentUserQuery(null)
+
   return (
     <>
       {isLoading ? (
@@ -88,7 +89,7 @@ const AdvInfo = ({ namePage, adId }: Page) => {
                 </S.AdvREviewLink>
               </S.AdvReviews>
               <S.AdvPrice>{currentAdv?.price} P</S.AdvPrice>
-              {namePage === ADV_PAGE ? (
+              {currentUser?.id !== currentAdv?.user?.id ? (
                 <div className="adv__description_buttons">
                   <S.AdvButton onClick={showPhoneNumber}>
                     {!phoneNumber

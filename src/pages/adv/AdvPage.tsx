@@ -16,7 +16,7 @@ const AdvPage = () => {
       <Header />
       <Navigation namePage={ADV_PAGE} />
       <Container>
-        <AdvInfo namePage={ADV_PAGE} adId={adId}/>
+        <AdvInfo adId={adId}/>
       </Container>
       <MobileFooter/>
     </div>

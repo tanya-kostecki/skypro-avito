@@ -1,5 +1,5 @@
 interface Page {
-    namePage: string;
+    namePage?: string;
     adId?: number;
     userId?: number
 }

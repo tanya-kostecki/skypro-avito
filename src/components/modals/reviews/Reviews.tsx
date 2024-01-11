@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from './reviews.styles';
 import {
   CloseBlock,
@@ -13,7 +13,6 @@ import {
 import { formatDate } from '../../../helpers/FormatDate';
 import { baseUrl } from '../../../api/AdvApi';
 import { useForm } from 'react-hook-form';
-import { useAppSelector } from '../../../hooks/useAppSelector';
 import { IComment } from '../../../types';
 
 type Props = {
@@ -45,11 +44,13 @@ const Reviews = ({ setReviewsPopup, adId, reviews }: Props) => {
     try {
       await addCommentApi({ pk: adId, text: data.text }).unwrap();
       console.log('ok-result')
+      reset()
    } catch (error) {
       console.log(error);
     }
     console.log(data)
   };
+
 
   return (
     <S.ReviewsModal>
