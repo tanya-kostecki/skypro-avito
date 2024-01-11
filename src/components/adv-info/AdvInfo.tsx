@@ -138,7 +138,7 @@ const AdvInfo = ({ adId }: Page) => {
           </S.ProductDescription>
 
           {settingsPopup ? (
-            <AdvSettings setSettingsPopup={setSettingsPopup} />
+            <AdvSettings setSettingsPopup={setSettingsPopup} advertId={advertId}/>
           ) : null}
           {reviewsPopup ? (
             <Reviews

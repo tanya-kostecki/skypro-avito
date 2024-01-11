@@ -16,6 +16,15 @@ export const advertsApi = createApi({
       providesTags: () => [{ type: 'Advert', id: 'LIST' }],
     }),
 
+    getAdvertsById: builder.query<IAdv, number>({
+      query: (id) => ({
+        url: `/ads/${id}`,
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+      }),
+      providesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),
+
     addAdv: builder.mutation<IAdv, {
       title: string,
       description?: string,
@@ -80,6 +89,27 @@ export const advertsApi = createApi({
       },
     }),
 
+    changeAdvert: builder.mutation<
+      IAdv,
+      {
+        title: string;
+        description?: string;
+        price?: number;
+        pk: number;
+      }
+    >({
+      query: (body) => ({
+        url: `/ads/${body.pk}`,
+        method: 'PATCH',
+        body: {
+          title: body.title,
+          description: body.description,
+          price: body.price,
+        },
+      }),
+      invalidatesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),
+
     deleteAdvert: builder.mutation<void, number>({
       query: (id) => ({
         url: `/ads/${id}`,
@@ -126,5 +156,7 @@ export const {
   useAddImageToAdvMutation,
   useAddAdvWithoutImageMutation,
   useGetCurrentUserAdvertsQuery,
-  useDeleteAdvertMutation
+  useDeleteAdvertMutation,
+  useChangeAdvertMutation,
+  useGetAdvertsByIdQuery
 } = advertsApi;
