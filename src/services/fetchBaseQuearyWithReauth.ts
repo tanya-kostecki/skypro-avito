@@ -40,6 +40,7 @@ export const baseQueryWithReauth: BaseQueryFn = async (
       extraOptions,
     );
 
+
     if (refreshResult.data) {
       const { access_token, refresh_token } =
         refreshResult.data as RefreshTokenResponse;

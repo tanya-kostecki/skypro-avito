@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { $mobileWidth } from '../../constants/breakpoints';
+import { $desktopWidth, $mobileWidth, $tabletWidth } from '../../constants/breakpoints';
 import { $mainColor } from '../../globalStyles/GlobalStyles';
 
 export const SearchBlockContainer = styled.div`
@@ -32,7 +32,7 @@ export const SearchBlock = styled.div`
   padding-left: 140px;
   padding-right: 140px;
 
-  @media screen and (max-width: ${$mobileWidth}) {
+  @media screen and (max-width: ${$tabletWidth}) {
     background-color: ${$mainColor};
     padding-top: 12px;
     padding-bottom: 12px;
@@ -40,7 +40,6 @@ export const SearchBlock = styled.div`
     padding-left: 18px;
     padding-right: 18px;
     width: auto;
-
   }
 `;
 export const SearchLogoMobile = styled.img`
@@ -68,6 +67,10 @@ export const SearchBlockInput = styled.input`
     height: 32px;
     border-radius: 30px;
     margin-left: 0px;
+  }
+
+  @media screen and (max-width: ${$tabletWidth}) {
+    border-radius: 30px;
   }
 `;
 

@@ -6,11 +6,10 @@ import ProfileInfo from '../../components/profile-info/ProfileInfo';
 import { Container } from '../../globalStyles/GlobalStyles';
 import MobileFooter from '../../components/footer/MobileFooter';
 import { useGetCurrentUserQuery } from '../../services/user';
-import { Loader } from '../../components/loader/loader.styles';
 
 const ProfilePage = () => {
   const auth = localStorage.getItem('auth');
-  const { data: currentUser, isLoading } = useGetCurrentUserQuery(null);
+  const { data: currentUser } = useGetCurrentUserQuery(null);
 
   return (
     <>
@@ -19,7 +18,6 @@ const ProfilePage = () => {
           <Header />
           <Navigation namePage={PROFILE_PAGE} />
             <Container>
-              {isLoading && (<Loader/>)}
               {currentUser && <ProfileInfo user={currentUser} />}
             </Container>
           <MobileFooter />

@@ -6,9 +6,12 @@ import {
 } from '../../../services/adverts';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../error/ErrorMessage';
+import { Link } from 'react-router-dom';
+import useGetWindowWidth from '../../../hooks/WindowWidth';
+import { MOBILE } from '../../../constants/breakpoints';
 
 type Props = {
-  setSettingsPopup: (settingsPopup: boolean) => void;
+  setSettingsPopup?: (settingsPopup: boolean) => void;
   advertId: number;
 };
 
@@ -20,7 +23,7 @@ interface AdvertForm {
 }
 const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
   const closePopup = () => {
-    setSettingsPopup(false);
+    if (setSettingsPopup) setSettingsPopup(false);
   };
 
   const { data: currentAdv } = useGetAdvertsByIdQuery(advertId);
@@ -40,9 +43,13 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
 
   const editAdvert = (data: AdvertForm) => {
     const { title, description, price } = data;
-    changeAdvertApi({ title, description, price, pk: advertId }).unwrap()
-    setSettingsPopup(false)
+    changeAdvertApi({ title, description, price, pk: advertId }).unwrap();
+    if (setSettingsPopup) {
+      setSettingsPopup(false);
+    }
   };
+
+  const screenWidth = useGetWindowWidth();
 
   return (
     <S.SettingsContainer>
@@ -52,7 +59,58 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
             <S.CloseButtonImg src="/img/close.png" alt="close" />
           </S.CloseButton>
         </S.CloseBlock>
-        <S.SettingsTitle>Редактировать объявление</S.SettingsTitle>
+        <S.MobileSvg>
+          {screenWidth.width < MOBILE && (
+            <Link to={`/adv/${advertId}`}>
+              <svg
+                width="12"
+                height="21"
+                viewBox="0 0 12 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="12" height="21" fill="#C4C4C4" />
+                <g
+                  id="mob &#226;&#128;&#148; seller profile page"
+                  clipPath="url(#clip0_0_1)"
+                >
+                  <rect
+                    width="320"
+                    height="1241"
+                    transform="translate(-18 -89)"
+                    fill="white"
+                  />
+                  <g id="Frame 62" clipPath="url(#clip1_0_1)"></g>
+                  <path
+                    id="Vector 4082"
+                    d="M11 1.5L2 10.5L11 19.5"
+                    stroke="black"
+                    strokeWidth="2"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_0_1">
+                    <rect
+                      width="320"
+                      height="1241"
+                      fill="white"
+                      transform="translate(-18 -89)"
+                    />
+                  </clipPath>
+                  <clipPath id="clip1_0_1">
+                    <rect
+                      width="278"
+                      height="388"
+                      fill="white"
+                      transform="translate(2 -4)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+            </Link>
+          )}
+          <S.SettingsTitle>Редактировать объявление</S.SettingsTitle>
+        </S.MobileSvg>
         <form onSubmit={handleSubmit(editAdvert)}>
           <S.SettingsInfo>
             <div>
@@ -66,7 +124,7 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
                   required: 'Поле не может быть пустым',
                 })}
               />
-              {errors.title && (<ErrorMessage message={errors.title.message}/>)}
+              {errors.title && <ErrorMessage message={errors.title.message} />}
             </div>
             <div>
               <S.SettingsName>Описание</S.SettingsName>

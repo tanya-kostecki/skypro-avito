@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { $mobileWidth } from '../../constants/breakpoints';
+import { $mobileWidth, $tabletWidth } from '../../constants/breakpoints';
 
 export const ProfileIntoTitle = styled.h2`
   color: #000;
@@ -76,7 +76,9 @@ export const AvatarBlock = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  
 
   @media screen and (max-width: ${$mobileWidth}) {
     flex-direction: column;
@@ -97,7 +99,15 @@ export const ChangeAvatar = styled.button`
   font-weight: 400;
   text-decoration: none;
   border: none;
+  cursor: pointer;
   background-color: transparent;
+
+  @media screen and (max-width: ${$tabletWidth}) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 export const ChangeAvatarInput = styled.input`
   opacity: 0;
@@ -111,6 +121,9 @@ export const SettingsBlockInputs = styled.div`
   width: 614px;
 `;
 export const InputBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+
   @media screen and (max-width: ${$mobileWidth}) {
     display: flex;
     flex-direction: column;
@@ -154,6 +167,22 @@ export const InputBlockLabel = styled.label`
 `;
 
 export const NameInput = styled.input`
+  width: 300px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid #009ee4;
+  background: #fff;
+  padding-left: 20px;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: 279px;
+    height: 40px;
+    border-radius: 30px;
+    border: 1px solid;
+  }
+`;
+export const SurnameInput = styled.input`
   width: 300px;
   height: 50px;
   flex-shrink: 0;

@@ -12,6 +12,13 @@ export const SettingsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    position: static;
+    width: auto;
+    height: 100%;
+    padding-top: 50px;
+  }
 `;
 export const CloseBlock = styled.div`
   position: absolute;
@@ -42,6 +49,12 @@ export const SettingsMain = styled.div`
   background-color: white;
   width: 600px;
   position: relative;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    padding: 0;
+    position: static;
+    padding-top: 30px;
+  }
 `;
 export const SettingsTitle = styled.span`
   font-size: 32px;
@@ -58,7 +71,6 @@ export const SettingsTitle = styled.span`
     letter-spacing: 0em;
     text-align: center;
     display: block;
-    padding-top: 30px;
   }
 `;
 export const SettingsInfo = styled.div`
@@ -102,11 +114,21 @@ export const SettingsImagesBlock = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin-top: 10px;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    display: flex;
+    gap: 10px;
+  }
 `;
 export const SettingsImg = styled.img`
   width: 90px;
   height: 90px;
   background: #f0f0f0;
+
+  @media screen and (max-width: ${$mobileWidth}) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 export const SettingsPrice = styled.div`
   margin-top: 30px;
@@ -140,4 +162,12 @@ export const SettingsButton = styled.button`
   @media screen and (max-width: ${$mobileWidth}) {
     width: 100%;
   }
+`;
+
+export const MobileSvg = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
 `;

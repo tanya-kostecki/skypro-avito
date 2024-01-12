@@ -6,7 +6,7 @@ const MobileFooter = () => {
     <S.Footer>
       <S.FooterContainer>
         <S.FooterImg>
-          <a href="" target="_self">
+          <a href="/" target="_self">
             <S.FooterImgImg src="/img/icon_01.png" alt="home" />
           </a>
         </S.FooterImg>
@@ -16,7 +16,7 @@ const MobileFooter = () => {
           </a>
         </S.FooterImg>
         <S.FooterImg>
-          <a href="" target="_self">
+          <a href="/profile" target="_self">
             <S.FooterImgImg src="/img/icon_03.png" alt="home" />
           </a>
         </S.FooterImg>

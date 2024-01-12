@@ -34,6 +34,7 @@ export const ProductsMain = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 26px;
+  padding-bottom: 37px;
   
   @media screen and (max-width: ${$mobileWidth}) {
     align-items: center;

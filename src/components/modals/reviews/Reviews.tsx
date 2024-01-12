@@ -16,9 +16,11 @@ import { baseUrl } from '../../../api/AdvApi';
 import { useForm } from 'react-hook-form';
 import { IComment } from '../../../types';
 import { ErrorMessage } from '../../error/ErrorMessage';
+import useGetWindowWidth from '../../../hooks/WindowWidth';
+import { MOBILE } from '../../../constants/breakpoints';
 
 type Props = {
-  setReviewsPopup: (reviewsPopup: boolean) => void;
+  setReviewsPopup?: (reviewsPopup: boolean) => void;
   adId: number;
   comments: IComment[] | undefined;
 };
@@ -28,7 +30,9 @@ type CommentText = {
 };
 const Reviews = ({ setReviewsPopup, adId, comments }: Props) => {
   const closeReviewsPopup = () => {
-    setReviewsPopup(false);
+    if (setReviewsPopup) {
+      setReviewsPopup(false);
+    }
   };
 
   const isAuth = localStorage.getItem('auth');
@@ -64,15 +68,20 @@ const Reviews = ({ setReviewsPopup, adId, comments }: Props) => {
     console.log(data);
   };
 
+  const screenWidth = useGetWindowWidth();
+
   return (
     <S.ReviewsModal>
       <S.ReviewsContainer>
         <S.ReviewsMain>
-          <CloseBlock>
-            <CloseButton onClick={closeReviewsPopup}>
-              <CloseButtonImg src="/img/close.png" alt="close" />
-            </CloseButton>
-          </CloseBlock>
+          {screenWidth.width > MOBILE && (
+            <CloseBlock>
+              <CloseButton onClick={closeReviewsPopup}>
+                <CloseButtonImg src="/img/close.png" alt="close" />
+              </CloseButton>
+            </CloseBlock>
+          )}
+
           <SettingsTitle>Отзывы о товаре</SettingsTitle>
           <S.ReviewsInfo>
             {isAuth && (

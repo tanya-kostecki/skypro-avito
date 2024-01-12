@@ -14,7 +14,7 @@ const SellerProfileInfo = ({ userId }: User) => {
   const { data: adverts, isLoading } = useGetAdvertsQuery(null);
 
   const userAdverts = adverts?.filter((adv) => adv?.user_id === userId);
-
+  
   return (
     <ProductsContainer>
       <S.ProfileIntoTitle>Профиль продавца</S.ProfileIntoTitle>
@@ -43,14 +43,16 @@ const SellerProfileInfo = ({ userId }: User) => {
                     <S.SellerAddInfo>
                       {userAdverts[0]?.user?.city}
                     </S.SellerAddInfo>
+
+                    <S.SellerAddInfo>
+                        Продает товары с {userAdverts[0]?.user?.sells_from}
+                      </S.SellerAddInfo>
+                    <S.SaveButton>{userAdverts[0]?.user?.phone}</S.SaveButton>
                   </>
                 )}
-
-                <S.SellerAddInfo>Продает товары с августа 2021</S.SellerAddInfo>
-                <S.SaveButton>Показать телефон 8 905 ХХХ ХХ ХХ</S.SaveButton>
               </S.InputBlock>
 
-              <S.SettingsBlockInputs></S.SettingsBlockInputs>
+              {/* <S.SettingsBlockInputs></S.SettingsBlockInputs> */}
             </S.ProfileSettingsBlock>
           </S.ProfileSettings>
           <ProductsTitle>Товары продавца</ProductsTitle>

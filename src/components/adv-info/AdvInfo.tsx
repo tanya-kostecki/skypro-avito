@@ -1,22 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './adv.styles';
 import AdvSettings from '../modals/adv-settings/AdvSettings';
 import Reviews from '../modals/reviews/Reviews';
 import useGetWindowWidth from '../../hooks/WindowWidth';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Page } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
 import { formatDate } from '../../helpers/FormatDate';
 import {
   useDeleteAdvertMutation,
-  useGetAdvertsQuery,
+  useGetAdvertsByIdQuery,
   useGetCommentsByAdQuery,
+  useLazyGetCurrentUserAdvertsQuery,
 } from '../../services/adverts';
 import { Link } from 'react-router-dom';
 import { Loader } from '../loader/loader.styles';
-import { useGetCurrentUserQuery } from '../../services/user';
+// import { useGetCurrentUserQuery } from '../../services/user';
+import { MOBILE } from '../../constants/breakpoints';
 
-const AdvInfo = ({ adId }: Page) => {
+const AdvInfo = () => {
+  const params = useParams();
+  const advertId = Number(params.id);
+
+  const { data: currentAdv, isLoading } = useGetAdvertsByIdQuery(advertId);
+
+  const { data: reviews } = useGetCommentsByAdQuery({ pk: advertId });
+
+  // const { data: currentUser } = useGetCurrentUserQuery(null);
+
+  //
+  const [currentUserAdverts, { data: currentUser }] =
+    useLazyGetCurrentUserAdvertsQuery();
+  const isAuth = localStorage.getItem('auth');
+
+  useEffect(() => {
+    if (isAuth) {
+      currentUserAdverts(null).unwrap();
+    }
+  }, [currentUser, currentUserAdverts, isAuth]);
+
+  const [deleteAdvApi] = useDeleteAdvertMutation();
+
+  const deleteAdvert = (id: number) => {
+    deleteAdvApi(id).unwrap();
+    window.location.href = '/profile';
+  };
+
   const [settingsPopup, setSettingsPopup] = useState<boolean>(false);
   const [reviewsPopup, setReviewsPopup] = useState<boolean>(false);
 
@@ -24,50 +52,32 @@ const AdvInfo = ({ adId }: Page) => {
   const navigate = useNavigate();
 
   const showSettingsPopup = () => {
-    if (screenSize.width > 480) {
+    if (screenSize.width > MOBILE) {
       setSettingsPopup(true);
     } else {
-      navigate('/adv-settings');
+      navigate(`/adv-settings/${advertId}`);
     }
   };
 
   const showReviewsPopup = () => {
-    if (screenSize.width > 480) {
+    if (screenSize.width > MOBILE) {
       setReviewsPopup(true);
     } else {
-      navigate('/reviews');
+      navigate(`/reviews/${advertId}`);
     }
   };
-
-  const { data: adv, isLoading } = useGetAdvertsQuery(null);
-
-  const currentAdv = adv?.find((elem) => elem.id === adId);
 
   const [phoneNumber, setPhoneNumber] = useState<boolean>(false);
   const showPhoneNumber = () => {
     setPhoneNumber(true);
   };
 
-  const params = useParams();
-  const advertId = Number(params.id);
-
-  const { data: reviews } = useGetCommentsByAdQuery({ pk: advertId })
-
-  const { data: currentUser } = useGetCurrentUserQuery(null)
-
-  const [deleteAdvApi] = useDeleteAdvertMutation()
-
-  const deleteAdvert = (id: number) => {
-    deleteAdvApi(id).unwrap();
-    window.location.href = '/profile'
-  }
-
   return (
-    <>
+    <S.AdvContainer>
       {isLoading ? (
         <Loader />
       ) : (
-        <S.AdvContainer>
+        <>
           <S.Adv>
             <S.AdvImages>
               {currentAdv?.images.length !== 0 ? (
@@ -76,13 +86,13 @@ const AdvInfo = ({ adId }: Page) => {
                 <S.ImageBig />
               )}
 
-              {/* <S.SmallImages>
-              <S.ImageSmall />
-              <S.ImageSmall />
-              <S.ImageSmall />
-              <S.ImageSmall />
-              <S.ImageSmall />
-            </S.SmallImages> */}
+              <S.SmallImages>
+                <S.ImageSmall />
+                <S.ImageSmall />
+                <S.ImageSmall />
+                <S.ImageSmall />
+                <S.ImageSmall />
+              </S.SmallImages>
             </S.AdvImages>
 
             <S.AdvMain>
@@ -97,7 +107,16 @@ const AdvInfo = ({ adId }: Page) => {
                 </S.AdvREviewLink>
               </S.AdvReviews>
               <S.AdvPrice>{currentAdv?.price} P</S.AdvPrice>
-              {currentUser?.id !== currentAdv?.user?.id ? (
+              {isAuth && currentUser?.find(({ id }) => id === advertId) ? (
+                <S.AdvButtons>
+                  <S.AdvButton onClick={showSettingsPopup}>
+                    Редактировать
+                  </S.AdvButton>
+                  <S.AdvButton onClick={() => deleteAdvert(advertId)}>
+                    Снять с публикации
+                  </S.AdvButton>
+                </S.AdvButtons>
+              ) : (
                 <div className="adv__description_buttons">
                   <S.AdvButton onClick={showPhoneNumber}>
                     {!phoneNumber
@@ -105,30 +124,62 @@ const AdvInfo = ({ adId }: Page) => {
                       : currentAdv?.user?.phone}
                   </S.AdvButton>
                 </div>
-              ) : (
-                <S.AdvButtons>
-                  <S.AdvButton onClick={showSettingsPopup}>
-                    Редактировать
-                  </S.AdvButton>
-                  <S.AdvButton onClick={() => deleteAdvert(advertId)}>Снять с публикации</S.AdvButton>
-                </S.AdvButtons>
               )}
-              <S.AdvSeller>
-                {currentAdv?.user?.avatar ? (
-                  <S.AdvSellerImg
-                    src={`${baseUrl}${currentAdv?.user?.avatar}`}
-                  />
-                ) : (
-                  <S.AdvSellerImg />
-                )}
+              {currentAdv?.user?.id ? (
+                <S.AdvSeller>
+                  {currentAdv?.user?.avatar ? (
+                    <S.AdvSellerImg
+                      src={`${baseUrl}${currentAdv?.user?.avatar}`}
+                    />
+                  ) : (
+                    <S.AdvSellerImg />
+                  )}
+                  {isAuth && currentUser?.find(({ id }) => id === advertId) ? (
+                    <Link to="/profile">
+                      <S.AdvSellerInfo>
+                        <S.AdvSellerName>
+                          {currentAdv?.user?.name}
+                        </S.AdvSellerName>
+                        <S.AdvSellerDate>
+                          Продает товары с {currentAdv?.user?.sells_from}
+                        </S.AdvSellerDate>
+                      </S.AdvSellerInfo>
+                    </Link>
+                  ) : (
+                    <Link to={`/seller-profile/${currentAdv?.user?.id}`}>
+                      <S.AdvSellerInfo>
+                        <S.AdvSellerName>
+                          {currentAdv?.user?.name}
+                        </S.AdvSellerName>
+                        <S.AdvSellerDate>
+                          Продает товары с {currentAdv?.user?.sells_from}
+                        </S.AdvSellerDate>
+                      </S.AdvSellerInfo>
+                    </Link>
+                  )}
+                </S.AdvSeller>
+              ) : (
+                <S.AdvSeller>
+                  {currentAdv?.user?.avatar ? (
+                    <S.AdvSellerImg
+                      src={`${baseUrl}${currentAdv?.user?.avatar}`}
+                    />
+                  ) : (
+                    <S.AdvSellerImg />
+                  )}
 
-                <Link to={`/seller-profile/${currentAdv?.user?.id}`}>
-                  <S.AdvSellerInfo>
-                    <S.AdvSellerName>{currentAdv?.user?.name}</S.AdvSellerName>
-                    <S.AdvSellerDate>Продает товары с мая 2022</S.AdvSellerDate>
-                  </S.AdvSellerInfo>
-                </Link>
-              </S.AdvSeller>
+                  <Link to={`/seller-profile/${currentAdv?.user?.id}`}>
+                    <S.AdvSellerInfo>
+                      <S.AdvSellerName>
+                        {currentAdv?.user?.name}
+                      </S.AdvSellerName>
+                      <S.AdvSellerDate>
+                        Продает товары с {currentAdv?.user?.sells_from}
+                      </S.AdvSellerDate>
+                    </S.AdvSellerInfo>
+                  </Link>
+                </S.AdvSeller>
+              )}
             </S.AdvMain>
           </S.Adv>
 
@@ -138,7 +189,10 @@ const AdvInfo = ({ adId }: Page) => {
           </S.ProductDescription>
 
           {settingsPopup ? (
-            <AdvSettings setSettingsPopup={setSettingsPopup} advertId={advertId}/>
+            <AdvSettings
+              setSettingsPopup={setSettingsPopup}
+              advertId={advertId}
+            />
           ) : null}
           {reviewsPopup ? (
             <Reviews
@@ -147,9 +201,9 @@ const AdvInfo = ({ adId }: Page) => {
               comments={reviews}
             />
           ) : null}
-        </S.AdvContainer>
+        </>
       )}
-    </>
+    </S.AdvContainer>
   );
 };
 

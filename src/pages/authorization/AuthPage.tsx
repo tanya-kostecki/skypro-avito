@@ -13,6 +13,7 @@ import {
 } from '../../services/user';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { setToken } from '../../store/slices/TokenSlice';
+import { MOBILE } from "../../constants/breakpoints";
 
 function AuthPage({ isLoginMode = false }: Props) {
   const [error, setError] = useState('');
@@ -57,7 +58,7 @@ function AuthPage({ isLoginMode = false }: Props) {
             navigate('/');
           });
       } catch (error) {
-        setError('error');
+        setError('Непривильный логин или пароль');
       } finally {
         setIsAuthProcess(false);
       }
@@ -108,7 +109,7 @@ function AuthPage({ isLoginMode = false }: Props) {
 
   return (
     <S.PageContainer>
-      {screenSize.width < 481 ? <Navigation namePage={AUTH_PAGE} /> : null}
+      {screenSize.width < MOBILE ? <Navigation namePage={AUTH_PAGE} /> : null}
 
       <S.ModalForm>
         <Link to="/login">
