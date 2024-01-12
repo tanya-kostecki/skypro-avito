@@ -1,23 +1,30 @@
-import React from 'react'
-import Header from '../../components/header/Header'
-import { PROFILE_PAGE } from '../../constants/pagesConst'
-import Navigation from '../../components/navigation/Navigation'
-import ProfileInfo from '../../components/profile-info/ProfileInfo'
+import React from 'react';
+import Header from '../../components/header/Header';
+import { PROFILE_PAGE } from '../../constants/pagesConst';
+import Navigation from '../../components/navigation/Navigation';
+import ProfileInfo from '../../components/profile-info/ProfileInfo';
 import { Container } from '../../globalStyles/GlobalStyles';
 import MobileFooter from '../../components/footer/MobileFooter';
+import { useGetCurrentUserQuery } from '../../services/user';
 
 const ProfilePage = () => {
-  return (
-    <div>
-      <Header namePage={PROFILE_PAGE} />
-      <Navigation namePage={PROFILE_PAGE} />
-      <Container>
-        {/* <Navigation namePage={PROFILE_PAGE} /> */}
-        <ProfileInfo namePage={PROFILE_PAGE} />
-      </Container>
-      <MobileFooter/>
-    </div>
-  );
-}
+  const auth = localStorage.getItem('auth');
+  const { data: currentUser } = useGetCurrentUserQuery(null);
 
-export default ProfilePage
+  return (
+    <>
+      {auth && (
+        <div>
+          <Header />
+          <Navigation namePage={PROFILE_PAGE} />
+            <Container>
+              {currentUser && <ProfileInfo user={currentUser} />}
+            </Container>
+          <MobileFooter />
+        </div>
+      )}
+    </>
+  );
+};
+
+export default ProfilePage;

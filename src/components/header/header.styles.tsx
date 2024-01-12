@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { $mobileWidth } from "../../constants/breakpoints";
+import { $mobileWidth, $tabletWidth } from "../../constants/breakpoints";
 
 export const Header = styled.div`
     height: 79px;
@@ -8,7 +8,7 @@ export const Header = styled.div`
     align-items: center;
     justify-content: flex-end;
     
-    @media screen and (max-width: ${$mobileWidth}) {
+    @media screen and (max-width: ${$tabletWidth}) {
         display: none;
     }
 `
