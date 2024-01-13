@@ -1,11 +1,13 @@
 import React from 'react';
-import './App.css';
+import AppRoutes from './routes';
+import { GlobalStyle } from './globalStyles/GlobalStyles';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Skypro Avito</h1>
-    </div>
+    <>
+      <AppRoutes />
+      <GlobalStyle />
+    </>
   );
 }
 
