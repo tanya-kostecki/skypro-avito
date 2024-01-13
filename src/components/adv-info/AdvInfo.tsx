@@ -13,7 +13,7 @@ import {
   useLazyGetCurrentUserAdvertsQuery,
 } from '../../services/adverts';
 import { Link } from 'react-router-dom';
-import { Loader } from '../loader/loader.styles';
+import { Loader } from '../loader/Loader';
 // import { useGetCurrentUserQuery } from '../../services/user';
 import { MOBILE } from '../../constants/breakpoints';
 
@@ -27,7 +27,6 @@ const AdvInfo = () => {
 
   // const { data: currentUser } = useGetCurrentUserQuery(null);
 
-  //
   const [currentUserAdverts, { data: currentUser }] =
     useLazyGetCurrentUserAdvertsQuery();
   const isAuth = localStorage.getItem('auth');

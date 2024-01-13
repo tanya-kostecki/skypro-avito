@@ -12,7 +12,7 @@ import { IUser } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
 import { ErrorMessage } from '../error/ErrorMessage';
 import { useGetCurrentUserAdvertsQuery } from '../../services/adverts';
-import { Loader } from '../loader/loader.styles';
+import { Loader } from '../loader/Loader';
 
 interface Props {
   user: IUser;

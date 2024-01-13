@@ -10,7 +10,7 @@ import {
 } from '../../components/products/products.styles';
 import MobileFooter from '../../components/footer/MobileFooter';
 import { useGetAdvertsQuery } from '../../services/adverts';
-import Loader from '../../components/loader/Loader';
+import { Loader } from '../../components/loader/Loader';
 
 const MainPage = () => {
   const { data: products, isLoading } = useGetAdvertsQuery(null);

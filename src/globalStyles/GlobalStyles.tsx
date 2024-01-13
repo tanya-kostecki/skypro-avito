@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { $mobileWidth, $tabletWidth } from "../constants/breakpoints";
+import { $mobileWidth } from "../constants/breakpoints";
 import { createGlobalStyle } from "styled-components";
 
 export const CentralWrapper = css`
@@ -14,10 +14,6 @@ export const Container = styled.div`
         padding-right: 18px;
     }
 
-    @media screen and (max-width: ${$tabletWidth}) {
-      padding-left: 50px;
-      padding-right: 50px;
-    }
 `
 export const $mainColor = '#009EE4'
 
