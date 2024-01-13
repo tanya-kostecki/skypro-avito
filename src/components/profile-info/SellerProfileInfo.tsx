@@ -5,7 +5,7 @@ import { ProductsTitle } from '../products/products.styles';
 import { useGetAdvertsQuery } from '../../services/adverts';
 import Products from '../products/Products';
 import { baseUrl } from '../../api/AdvApi';
-import { Loader } from '../loader/loader.styles';
+import { Loader } from '../loader/Loader';
 
 type User = {
   userId: number;

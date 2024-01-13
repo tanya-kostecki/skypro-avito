@@ -1,10 +1,8 @@
 import React from 'react'
 import * as S from './loader.styles'
 
-const Loader = () => {
+export const Loader = () => {
   return (
-    <S.Loader></S.Loader>
+    <S.Loading></S.Loading>
   )
 }
-
-export default Loader
