@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { $mobileWidth, $tabletWidth } from "../../constants/breakpoints";
+import { $tabletWidth } from '../../constants/breakpoints';
 
 export const Header = styled.div`
     height: 79px;

@@ -2,11 +2,7 @@ import styled from 'styled-components';
 import { $mainColor } from '../../globalStyles/GlobalStyles';
 import { $mobileWidth } from '../../constants/breakpoints';
 
-export const AdvContainer = styled.div`
-  @media screen and (max-width: ${$mobileWidth}) {
-    padding-top: 59px;
-  }
-`;
+export const AdvContainer = styled.div``;
 
 export const Adv = styled.div`
   display: flex;

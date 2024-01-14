@@ -156,7 +156,7 @@ const ProfileInfo = ({ user }: Props) => {
           </S.ProfileSettings>
 
           <ProductsTitle>Мои товары</ProductsTitle>
-          <Products products={currentUserAdverts} />
+          <Products products={currentUserAdverts} />          
         </>
       )}
     </ProductsContainer>

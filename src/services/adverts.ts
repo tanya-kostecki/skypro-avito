@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IAdv, IComment } from '../types';
+import { IAdv, IComment, IImg } from '../types';
 import { baseQueryWithReauth } from './fetchBaseQuearyWithReauth';
 import { baseUrl } from '../api/AdvApi';
 
@@ -143,6 +143,14 @@ export const advertsApi = createApi({
       }),
       invalidatesTags: () => [{ type: 'Comment', id: 'ID' }],
     }),
+
+    getImagesByAd: builder.query<IImg[], { pk: number }>({
+      query: (args) => ({
+        url: `/images/${args.pk}`,
+        method: 'GET',
+      }),
+      providesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -159,5 +167,6 @@ export const {
   useDeleteAdvertMutation,
   useChangeAdvertMutation,
   useGetAdvertsByIdQuery,
-  useLazyGetCurrentUserAdvertsQuery
+  useLazyGetCurrentUserAdvertsQuery,
+  useGetImagesByAdQuery
 } = advertsApi;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { $desktopWidth, $mobileWidth, $tabletWidth } from '../../constants/breakpoints';
+import { $mobileWidth, $tabletWidth } from '../../constants/breakpoints';
 import { $mainColor } from '../../globalStyles/GlobalStyles';
 
 export const SearchBlockContainer = styled.div`
@@ -7,6 +7,7 @@ export const SearchBlockContainer = styled.div`
 
   @media screen and (max-width: ${$mobileWidth}) {
     position: fixed;
+    z-index: 99;
   }
 `;
 export const SearchBlockLogo = styled.a`
