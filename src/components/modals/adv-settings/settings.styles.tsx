@@ -54,6 +54,7 @@ export const SettingsMain = styled.div`
     padding: 0;
     position: static;
     padding-top: 30px;
+    border-radius: 0px;
   }
 `;
 export const SettingsTitle = styled.span`
@@ -120,10 +121,11 @@ export const SettingsImagesBlock = styled.div`
     gap: 10px;
   }
 `;
-export const SettingsImg = styled.img`
+export const SettingsImg = styled.input`
   width: 90px;
   height: 90px;
   background: #f0f0f0;
+  border: none;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 60px;

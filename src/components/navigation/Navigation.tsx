@@ -7,6 +7,8 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { Filters, setFilteredAdverts, setFilters } from '../../store/slices/AdvertSlice';
 import { useGetAdvertsQuery } from '../../services/adverts';
+import useGetWindowWidth from '../../hooks/WindowWidth';
+import { MOBILE } from '../../constants/breakpoints';
 
 const Navigation = ({ namePage }: Page) => {
   const filters = useAppSelector((state: { adverts: { filters: Filters; }; }) => state.adverts.filters);
@@ -36,6 +38,8 @@ const Navigation = ({ namePage }: Page) => {
     }
   }, [filters]);
 
+  const screenSize = useGetWindowWidth();
+
   return (
     <S.SearchBlockContainer>
       <S.SearchBlock>
@@ -46,12 +50,12 @@ const Navigation = ({ namePage }: Page) => {
             alt="logo"
           />
         </S.SearchBlockLogo>
-        <S.MobileLogo href='/'>
-            <S.SearchLogoMobile
-              className="search__logo-img"
-              src="/img/logo-mob.png"
-              alt="logo"
-            />
+        <S.MobileLogo href="/">
+          <S.SearchLogoMobile
+            className="search__logo-img"
+            src="/img/logo-mob.png"
+            alt="logo"
+          />
         </S.MobileLogo>
 
         {namePage === MAIN_PAGE ? (
@@ -60,13 +64,13 @@ const Navigation = ({ namePage }: Page) => {
               placeholder="Поиск по объявлениям"
               onChange={(event) => search(event.target.value)}
             ></S.SearchBlockInput>
-            {/* <S.SearchBlockButton>Найти</S.SearchBlockButton> */}
           </>
         ) : (
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <S.BackToMainBtn>Вернуться на главную</S.BackToMainBtn>
           </NavLink>
         )}
+        {screenSize.width <= MOBILE && <img src="/img/logout.svg" style={{ color: 'white'}}></img>}
       </S.SearchBlock>
     </S.SearchBlockContainer>
   );

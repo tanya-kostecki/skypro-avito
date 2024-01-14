@@ -28,15 +28,15 @@ export const advertsApi = createApi({
     addAdv: builder.mutation<IAdv, {
       title: string,
       description?: string,
-      price?: string,
-      images?: File | null
+      price?: number,
+      images?: File[] | null
     }>({
       query:(arg) => {
         const {title, description, price, images} = arg
         const formData = new FormData();
-        if (images) {
-          formData.append('file', images)
-        }
+        
+        images?.forEach((image) => formData.append('file', image))
+  
         return {
           url: `${baseUrl}ads?title=${title}&description=${description}&price=${price}`,
           method: 'POST',

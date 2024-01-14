@@ -1,38 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from '../modals/adv-settings/settings.styles';
 import {
   useAddAdvWithoutImageMutation,
+  useAddImageToAdvMutation,
 } from '../../services/adverts';
 import { useForm } from 'react-hook-form';
-// import { IAdv } from '../../types';
+import ImageForm from './ImageForm';
+
 
 type Props = {
-  setNewAdv: (newAdv: boolean) => void;
+  setNewAdv?: (newAdv: boolean) => void;
 };
 
 interface AdvForm {
   title: string;
   description: string;
   price: number;
+  images: File[] | null
 }
+
 const AddNewAdv = ({ setNewAdv }: Props) => {
   const closeNewAdv = () => {
-    setNewAdv(false);
+    if (setNewAdv) {
+      setNewAdv(false);
+    }
   };
 
   const [addAdvWithoutImg] = useAddAdvWithoutImageMutation();
-  // const [addImgToAdv] = useAddImageToAdvMutation();
+  const [addImgToAdv] = useAddImageToAdvMutation();
   const { register, handleSubmit } = useForm<AdvForm>();
-  // const [advImg, setAdvImg] = useState<File[]>([]);
+  const [advImg, setAdvImg] = useState<File[]>([]);
 
   const addNewAdv = async (data: AdvForm) => {
     const { title, description, price } = data;
     addAdvWithoutImg({ title, description, price })
       .unwrap()
       .then((response) => {
-        console.log('response-ok', response);
-        window.location.href = `/adv/${response.id}`
-      });
+        console.log('response', response)
+        if (advImg) {
+          for (let i = 0; i < advImg.length; i++) {
+            addImgToAdv({ pk: response.id, image: advImg[i] });
+          }         
+        }
+        closeNewAdv();
+      });  
   };
 
   return (
@@ -68,11 +79,11 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
             <div>
               <S.SettingsName>Фотографии товара</S.SettingsName>
               <S.SettingsImagesBlock>
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={0} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={1} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={2} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={3} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={4} />
               </S.SettingsImagesBlock>
             </div>
           </S.SettingsInfo>

@@ -11,7 +11,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { IUser } from '../../types';
 import { baseUrl } from '../../api/AdvApi';
 import { ErrorMessage } from '../error/ErrorMessage';
-import { useGetCurrentUserAdvertsQuery } from '../../services/adverts';
+import { useGetAdvertsQuery } from '../../services/adverts';
 import { Loader } from '../loader/Loader';
 
 interface Props {
@@ -54,9 +54,9 @@ const ProfileInfo = ({ user }: Props) => {
       uploadAvatarApi(file).unwrap();
     }
   };
-
-  const { data: currentUserAdverts, isFetching } =
-    useGetCurrentUserAdvertsQuery(null);
+  
+  const { data: adverts, isFetching } = useGetAdvertsQuery(null)
+  const userAdverts = adverts?.filter((advert) => advert.user_id === user.id)
 
   return (
     <ProductsContainer>
@@ -156,7 +156,8 @@ const ProfileInfo = ({ user }: Props) => {
           </S.ProfileSettings>
 
           <ProductsTitle>Мои товары</ProductsTitle>
-          <Products products={currentUserAdverts} />          
+          <Products products={userAdverts} />
+                    
         </>
       )}
     </ProductsContainer>
