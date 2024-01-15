@@ -87,6 +87,23 @@ export const advertsApi = createApi({
           header: { 'content-type': 'multipart/form-data' },
         };
       },
+
+      invalidatesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),
+
+    deleteImage: builder.mutation<
+      IAdv,
+      {
+        pk: number;
+        file_url: string;
+      }
+    >({
+      query: ({ pk, file_url }) => ({
+        url: `/ads/${pk}/image`,
+        params: `file_url=${file_url}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: () => [{ type: 'Advert', id: 'LIST' }],
     }),
 
     changeAdvert: builder.mutation<
@@ -167,7 +184,9 @@ export const {
   useDeleteAdvertMutation,
   useChangeAdvertMutation,
   useGetAdvertsByIdQuery,
+  useLazyGetAdvertsByIdQuery,
   useLazyGetCurrentUserAdvertsQuery,
   useGetImagesByAdQuery,
-  useLazyGetAdvertsQuery
+  useLazyGetAdvertsQuery,
+  useDeleteImageMutation
 } = advertsApi;

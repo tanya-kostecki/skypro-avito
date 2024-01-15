@@ -6,9 +6,10 @@ import {
 } from '../../../services/adverts';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../error/ErrorMessage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useGetWindowWidth from '../../../hooks/WindowWidth';
 import { MOBILE } from '../../../constants/breakpoints';
+import EditImageForm from './EditImageForm';
 
 type Props = {
   setSettingsPopup?: (settingsPopup: boolean) => void;
@@ -29,6 +30,8 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
   const { data: currentAdv } = useGetAdvertsByIdQuery(advertId);
   const [changeAdvertApi] = useChangeAdvertMutation();
 
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -44,9 +47,14 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
   const editAdvert = (data: AdvertForm) => {
     const { title, description, price } = data;
     changeAdvertApi({ title, description, price, pk: advertId }).unwrap();
-    if (setSettingsPopup) {
-      setSettingsPopup(false);
+    if (screenWidth.width > MOBILE) {
+      if (setSettingsPopup) {
+        setSettingsPopup(false);
+      }
+    } else {
+      navigate(`/adv/${advertId}`)
     }
+   
   };
 
   const screenWidth = useGetWindowWidth();
@@ -138,11 +146,11 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
             <div>
               <S.SettingsName>Фотографии товара</S.SettingsName>
               <S.SettingsImagesBlock>
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
+                <EditImageForm advertId={advertId} imageIndex={0}/>
+                <EditImageForm advertId={advertId} imageIndex={1}/>
+                <EditImageForm advertId={advertId} imageIndex={2}/>
+                <EditImageForm advertId={advertId} imageIndex={3}/>
+                <EditImageForm advertId={advertId} imageIndex={4}/>
               </S.SettingsImagesBlock>
             </div>
           </S.SettingsInfo>

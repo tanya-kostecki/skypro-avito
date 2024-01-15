@@ -19,8 +19,6 @@ const ImageForm = ({ advImg, setAdvImg, index }: AddImg) => {
       };
       reader.readAsDataURL(file);
     }
-
-    console.log('advImg', advImg)
   };
 
   const handleDeleteImage = () => {
@@ -41,6 +39,7 @@ const ImageForm = ({ advImg, setAdvImg, index }: AddImg) => {
       <S.ImageInput
         type="file"
         id="advphoto"
+        accept='image/*'
         onChange={(event) => handleAddImage(event)}
       />
         <S.FormItemImg src={imgSrc ? imgSrc : '/img/add-image.png'}/>

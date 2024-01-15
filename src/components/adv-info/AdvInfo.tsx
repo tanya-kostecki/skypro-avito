@@ -23,6 +23,8 @@ const AdvInfo = () => {
 
   const { data: currentAdv, isLoading } = useGetAdvertsByIdQuery(advertId);
 
+  console.log('current-adv', currentAdv);
+
   const { data: reviews } = useGetCommentsByAdQuery({ pk: advertId });
 
   const [currentUserAdverts, { data: currentUser }] =
