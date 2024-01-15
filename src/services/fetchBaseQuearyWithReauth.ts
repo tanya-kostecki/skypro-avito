@@ -1,5 +1,5 @@
 import { BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query';
-import { setToken } from '../store/slices/TokenSlice';
+import { setToken, setRemoveToken } from '../store/slices/TokenSlice';
 import { RootState } from '../store/store';
 import { baseUrl } from '../api/AdvApi';
 
@@ -52,6 +52,9 @@ export const baseQueryWithReauth: BaseQueryFn = async (
       );
 
       result = await baseQuery(args, api, extraOptions);
+    } else {
+      api.dispatch(setRemoveToken());
+      window.location.href = '/login';
     }
   }
 

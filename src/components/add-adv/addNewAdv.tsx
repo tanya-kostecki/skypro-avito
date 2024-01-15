@@ -3,6 +3,7 @@ import * as S from '../modals/adv-settings/settings.styles';
 import {
   useAddAdvWithoutImageMutation,
   useAddImageToAdvMutation,
+  useLazyGetAdvertsQuery,
 } from '../../services/adverts';
 import { useForm } from 'react-hook-form';
 import ImageForm from './ImageForm';
@@ -31,19 +32,23 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
   const { register, handleSubmit } = useForm<AdvForm>();
   const [advImg, setAdvImg] = useState<File[]>([]);
 
+  const [getAllAdverts] = useLazyGetAdvertsQuery();
+
   const addNewAdv = async (data: AdvForm) => {
     const { title, description, price } = data;
     addAdvWithoutImg({ title, description, price })
       .unwrap()
       .then((response) => {
-        console.log('response', response)
+        console.log('response', response);
         if (advImg) {
           for (let i = 0; i < advImg.length; i++) {
-            addImgToAdv({ pk: response.id, image: advImg[i] });
-          }         
+            addImgToAdv({ pk: response.id, image: advImg[i] })
+              .unwrap()
+              .then(() => getAllAdverts(null));
+          }
         }
         closeNewAdv();
-      });  
+      });
   };
 
   return (

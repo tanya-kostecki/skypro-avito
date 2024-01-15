@@ -168,5 +168,6 @@ export const {
   useChangeAdvertMutation,
   useGetAdvertsByIdQuery,
   useLazyGetCurrentUserAdvertsQuery,
-  useGetImagesByAdQuery
+  useGetImagesByAdQuery,
+  useLazyGetAdvertsQuery
 } = advertsApi;
