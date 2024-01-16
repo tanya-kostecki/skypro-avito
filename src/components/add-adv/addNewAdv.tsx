@@ -1,40 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from '../modals/adv-settings/settings.styles';
 import {
   useAddAdvWithoutImageMutation,
+  useAddImageToAdvMutation,
+  useLazyGetAdvertsQuery,
 } from '../../services/adverts';
 import { useForm } from 'react-hook-form';
-// import { IAdv } from '../../types';
+import ImageForm from './ImageForm';
+import useGetWindowWidth from '../../hooks/WindowWidth';
+import { MOBILE } from '../../constants/breakpoints';
+import { Link } from 'react-router-dom';
+
 
 type Props = {
-  setNewAdv: (newAdv: boolean) => void;
+  setNewAdv?: (newAdv: boolean) => void;
 };
 
 interface AdvForm {
   title: string;
   description: string;
   price: number;
+  images: File[] | null
 }
+
 const AddNewAdv = ({ setNewAdv }: Props) => {
   const closeNewAdv = () => {
-    setNewAdv(false);
+    if (setNewAdv) {
+      setNewAdv(false);
+    }
   };
 
   const [addAdvWithoutImg] = useAddAdvWithoutImageMutation();
-  // const [addImgToAdv] = useAddImageToAdvMutation();
+  const [addImgToAdv] = useAddImageToAdvMutation();
   const { register, handleSubmit } = useForm<AdvForm>();
-  // const [advImg, setAdvImg] = useState<File[]>([]);
+  const [advImg, setAdvImg] = useState<File[]>([]);
+
+  const [getAllAdverts] = useLazyGetAdvertsQuery();
 
   const addNewAdv = async (data: AdvForm) => {
     const { title, description, price } = data;
     addAdvWithoutImg({ title, description, price })
       .unwrap()
       .then((response) => {
-        console.log('response-ok', response);
-        window.location.href = `/adv/${response.id}`
+        if (advImg) {
+          for (let i = 0; i < advImg.length; i++) {
+            addImgToAdv({ pk: response.id, image: advImg[i] })
+              .unwrap()
+              .then(() => getAllAdverts(null));
+          }
+        }
+        closeNewAdv();
       });
   };
 
+  const screenWidth = useGetWindowWidth();
   return (
     <S.SettingsContainer>
       <S.SettingsMain>
@@ -43,7 +62,15 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
             <S.CloseButtonImg src="/img/close.png" alt="close" />
           </S.CloseButton>
         </S.CloseBlock>
-        <S.SettingsTitle>Новое объявление</S.SettingsTitle>
+        <S.MobileSvg>
+          {screenWidth.width < MOBILE && (
+            <Link to="/profile">
+              <img src='/img/vector.svg'/>
+            </Link>
+          )}
+          <S.SettingsTitle>Новое объявление</S.SettingsTitle>
+        </S.MobileSvg>
+    
         <form onSubmit={handleSubmit(addNewAdv)}>
           <S.SettingsInfo>
             <div>
@@ -68,11 +95,11 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
             <div>
               <S.SettingsName>Фотографии товара</S.SettingsName>
               <S.SettingsImagesBlock>
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={0} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={1} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={2} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={3} />
+                <ImageForm advImg={advImg} setAdvImg={setAdvImg} index={4} />
               </S.SettingsImagesBlock>
             </div>
           </S.SettingsInfo>

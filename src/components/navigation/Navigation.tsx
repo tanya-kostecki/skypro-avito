@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import * as S from './navigation.styles';
-import { MAIN_PAGE } from '../../constants/pagesConst';
-import { NavLink } from 'react-router-dom';
+import { AUTH_PAGE, MAIN_PAGE } from '../../constants/pagesConst';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Page } from '../../types';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { Filters, setFilteredAdverts, setFilters } from '../../store/slices/AdvertSlice';
 import { useGetAdvertsQuery } from '../../services/adverts';
+import useGetWindowWidth from '../../hooks/WindowWidth';
+import { MOBILE } from '../../constants/breakpoints';
 
 const Navigation = ({ namePage }: Page) => {
   const filters = useAppSelector((state: { adverts: { filters: Filters; }; }) => state.adverts.filters);
@@ -36,6 +38,14 @@ const Navigation = ({ namePage }: Page) => {
     }
   }, [filters]);
 
+  const screenSize = useGetWindowWidth();
+  
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
+
   return (
     <S.SearchBlockContainer>
       <S.SearchBlock>
@@ -46,12 +56,12 @@ const Navigation = ({ namePage }: Page) => {
             alt="logo"
           />
         </S.SearchBlockLogo>
-        <S.MobileLogo href='/'>
-            <S.SearchLogoMobile
-              className="search__logo-img"
-              src="/img/logo-mob.png"
-              alt="logo"
-            />
+        <S.MobileLogo href="/">
+          <S.SearchLogoMobile
+            className="search__logo-img"
+            src="/img/logo-mob.png"
+            alt="logo"
+          />
         </S.MobileLogo>
 
         {namePage === MAIN_PAGE ? (
@@ -60,12 +70,16 @@ const Navigation = ({ namePage }: Page) => {
               placeholder="Поиск по объявлениям"
               onChange={(event) => search(event.target.value)}
             ></S.SearchBlockInput>
-            {/* <S.SearchBlockButton>Найти</S.SearchBlockButton> */}
           </>
         ) : (
           <NavLink to="/" style={{ textDecoration: 'none' }}>
             <S.BackToMainBtn>Вернуться на главную</S.BackToMainBtn>
           </NavLink>
+        )}
+        {screenSize.width <= MOBILE && namePage !== AUTH_PAGE && (
+          <div onClick={logout}>
+            <img src="/img/logout.svg"></img>
+          </div>
         )}
       </S.SearchBlock>
     </S.SearchBlockContainer>

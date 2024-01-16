@@ -14,8 +14,8 @@ import {
 } from '../../services/adverts';
 import { Link } from 'react-router-dom';
 import { Loader } from '../loader/Loader';
-// import { useGetCurrentUserQuery } from '../../services/user';
 import { MOBILE } from '../../constants/breakpoints';
+import Gallery from '../gallery/Gallery';
 
 const AdvInfo = () => {
   const params = useParams();
@@ -24,8 +24,6 @@ const AdvInfo = () => {
   const { data: currentAdv, isLoading } = useGetAdvertsByIdQuery(advertId);
 
   const { data: reviews } = useGetCommentsByAdQuery({ pk: advertId });
-
-  // const { data: currentUser } = useGetCurrentUserQuery(null);
 
   const [currentUserAdverts, { data: currentUser }] =
     useLazyGetCurrentUserAdvertsQuery();
@@ -72,26 +70,14 @@ const AdvInfo = () => {
   };
 
   return (
-    <S.AdvContainer>
+    <>
       {isLoading ? (
         <Loader />
       ) : (
-        <>
+        <S.AdvContainer>
           <S.Adv>
             <S.AdvImages>
-              {currentAdv?.images.length !== 0 ? (
-                <S.ImageBig src={`${baseUrl}` + currentAdv?.images[0]?.url} />
-              ) : (
-                <S.ImageBig />
-              )}
-
-              <S.SmallImages>
-                <S.ImageSmall />
-                <S.ImageSmall />
-                <S.ImageSmall />
-                <S.ImageSmall />
-                <S.ImageSmall />
-              </S.SmallImages>
+              {currentAdv?.images && <Gallery images={currentAdv?.images} />}
             </S.AdvImages>
 
             <S.AdvMain>
@@ -200,9 +186,9 @@ const AdvInfo = () => {
               comments={reviews}
             />
           ) : null}
-        </>
+        </S.AdvContainer>
       )}
-    </S.AdvContainer>
+    </>
   );
 };
 

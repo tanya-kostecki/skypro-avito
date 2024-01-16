@@ -11,7 +11,7 @@ const MobileFooter = () => {
           </a>
         </S.FooterImg>
         <S.FooterImg>
-          <a href="" target="_self">
+          <a href="/add-new-adv" target="_self">
             <S.FooterImgImg src="/img/icon_02.png" alt="home" />
           </a>
         </S.FooterImg>

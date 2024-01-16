@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IAdv, IComment } from '../types';
+import { IAdv, IComment, IImg } from '../types';
 import { baseQueryWithReauth } from './fetchBaseQuearyWithReauth';
 import { baseUrl } from '../api/AdvApi';
 
@@ -28,15 +28,15 @@ export const advertsApi = createApi({
     addAdv: builder.mutation<IAdv, {
       title: string,
       description?: string,
-      price?: string,
-      images?: File | null
+      price?: number,
+      images?: File[] | null
     }>({
       query:(arg) => {
         const {title, description, price, images} = arg
         const formData = new FormData();
-        if (images) {
-          formData.append('file', images)
-        }
+        
+        images?.forEach((image) => formData.append('file', image))
+  
         return {
           url: `${baseUrl}ads?title=${title}&description=${description}&price=${price}`,
           method: 'POST',
@@ -87,6 +87,23 @@ export const advertsApi = createApi({
           header: { 'content-type': 'multipart/form-data' },
         };
       },
+
+      invalidatesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),
+
+    deleteImage: builder.mutation<
+      IAdv,
+      {
+        pk: number;
+        file_url: string;
+      }
+    >({
+      query: ({ pk, file_url }) => ({
+        url: `/ads/${pk}/image`,
+        params: `file_url=${file_url}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: () => [{ type: 'Advert', id: 'LIST' }],
     }),
 
     changeAdvert: builder.mutation<
@@ -143,6 +160,14 @@ export const advertsApi = createApi({
       }),
       invalidatesTags: () => [{ type: 'Comment', id: 'ID' }],
     }),
+
+    getImagesByAd: builder.query<IImg[], { pk: number }>({
+      query: (args) => ({
+        url: `/images/${args.pk}`,
+        method: 'GET',
+      }),
+      providesTags: () => [{ type: 'Advert', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -159,5 +184,9 @@ export const {
   useDeleteAdvertMutation,
   useChangeAdvertMutation,
   useGetAdvertsByIdQuery,
-  useLazyGetCurrentUserAdvertsQuery
+  useLazyGetAdvertsByIdQuery,
+  useLazyGetCurrentUserAdvertsQuery,
+  useGetImagesByAdQuery,
+  useLazyGetAdvertsQuery,
+  useDeleteImageMutation
 } = advertsApi;

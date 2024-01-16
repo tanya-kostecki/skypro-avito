@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { $mobileWidth } from '../../constants/breakpoints';
 
 const spin = keyframes`
     0% { transform: rotate(0deg); }
@@ -11,4 +12,13 @@ export const Loading = styled.div`
   width: 120px;
   height: 120px;
   animation: ${spin} 2s linear infinite;
+`;
+
+export const LoaderDiv = styled.div`
+  @media screen and (max-width: ${$mobileWidth}) {
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;

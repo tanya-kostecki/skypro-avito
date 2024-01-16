@@ -9,7 +9,7 @@ import { useGetCurrentUserQuery } from '../../services/user';
 
 const ProfilePage = () => {
   const auth = localStorage.getItem('auth');
-  const { data: currentUser } = useGetCurrentUserQuery(null);
+  const { data: user } = useGetCurrentUserQuery(null);
 
   return (
     <>
@@ -18,7 +18,7 @@ const ProfilePage = () => {
           <Header />
           <Navigation namePage={PROFILE_PAGE} />
             <Container>
-              {currentUser && <ProfileInfo user={currentUser} />}
+              {user && <ProfileInfo user={user} />}
             </Container>
           <MobileFooter />
         </div>

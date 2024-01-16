@@ -47,7 +47,6 @@ export const ProductItem = styled.div`
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 137px;
-    height: 293px;
     padding: 0px 0px 20px 0px;
     border-radius: 6px;
     gap: 10px;
@@ -57,11 +56,11 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 20px;
+  width: 270px;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 137px;
-    height: 293px;
+    height: 259px;
   }
 `;
 
@@ -89,11 +88,11 @@ export const CardImgImg = styled.img`
 export const CardDescription = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 259px;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 137px;
+    gap: 0px;
   }
 `;
 

@@ -11,6 +11,7 @@ import ReviewsPage from './pages/reviews/ReviewsPage';
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
 import NotFound from './pages/not-found/PageNotFound';
 import { MOBILE } from './constants/breakpoints';
+import AddAdvPage from './pages/add-new-adv/AddAdvPage';
 
 const AppRoutes = () => {
   const screenSize = useGetWindowWidth();
@@ -28,6 +29,9 @@ const AppRoutes = () => {
         <Route path="/profile" element={<ProfilePage />}></Route>
         {screenSize.width < MOBILE ? (
         <Route path="/adv-settings/:id" element={<AdvSettingsPage />}></Route>
+      ) : null}
+        {screenSize.width < MOBILE ? (
+        <Route path="/add-new-adv" element={<AddAdvPage />}></Route>
       ) : null}
       </Route>
       {screenSize.width < MOBILE ? (

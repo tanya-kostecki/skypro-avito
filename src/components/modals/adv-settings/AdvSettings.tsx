@@ -6,9 +6,10 @@ import {
 } from '../../../services/adverts';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '../../error/ErrorMessage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useGetWindowWidth from '../../../hooks/WindowWidth';
 import { MOBILE } from '../../../constants/breakpoints';
+import EditImageForm from './EditImageForm';
 
 type Props = {
   setSettingsPopup?: (settingsPopup: boolean) => void;
@@ -29,6 +30,8 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
   const { data: currentAdv } = useGetAdvertsByIdQuery(advertId);
   const [changeAdvertApi] = useChangeAdvertMutation();
 
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -44,9 +47,14 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
   const editAdvert = (data: AdvertForm) => {
     const { title, description, price } = data;
     changeAdvertApi({ title, description, price, pk: advertId }).unwrap();
-    if (setSettingsPopup) {
-      setSettingsPopup(false);
+    if (screenWidth.width > MOBILE) {
+      if (setSettingsPopup) {
+        setSettingsPopup(false);
+      }
+    } else {
+      navigate(`/adv/${advertId}`)
     }
+   
   };
 
   const screenWidth = useGetWindowWidth();
@@ -62,51 +70,7 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
         <S.MobileSvg>
           {screenWidth.width < MOBILE && (
             <Link to={`/adv/${advertId}`}>
-              <svg
-                width="12"
-                height="21"
-                viewBox="0 0 12 21"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect width="12" height="21" fill="#C4C4C4" />
-                <g
-                  id="mob &#226;&#128;&#148; seller profile page"
-                  clipPath="url(#clip0_0_1)"
-                >
-                  <rect
-                    width="320"
-                    height="1241"
-                    transform="translate(-18 -89)"
-                    fill="white"
-                  />
-                  <g id="Frame 62" clipPath="url(#clip1_0_1)"></g>
-                  <path
-                    id="Vector 4082"
-                    d="M11 1.5L2 10.5L11 19.5"
-                    stroke="black"
-                    strokeWidth="2"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_0_1">
-                    <rect
-                      width="320"
-                      height="1241"
-                      fill="white"
-                      transform="translate(-18 -89)"
-                    />
-                  </clipPath>
-                  <clipPath id="clip1_0_1">
-                    <rect
-                      width="278"
-                      height="388"
-                      fill="white"
-                      transform="translate(2 -4)"
-                    />
-                  </clipPath>
-                </defs>
-              </svg>
+              <img src='/img/vector.svg'/>
             </Link>
           )}
           <S.SettingsTitle>Редактировать объявление</S.SettingsTitle>
@@ -138,11 +102,11 @@ const AdvSettings = ({ setSettingsPopup, advertId }: Props) => {
             <div>
               <S.SettingsName>Фотографии товара</S.SettingsName>
               <S.SettingsImagesBlock>
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
-                <S.SettingsImg />
+                <EditImageForm advertId={advertId} imageIndex={0}/>
+                <EditImageForm advertId={advertId} imageIndex={1}/>
+                <EditImageForm advertId={advertId} imageIndex={2}/>
+                <EditImageForm advertId={advertId} imageIndex={3}/>
+                <EditImageForm advertId={advertId} imageIndex={4}/>
               </S.SettingsImagesBlock>
             </div>
           </S.SettingsInfo>

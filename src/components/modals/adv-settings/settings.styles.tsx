@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { $mobileWidth } from '../../../constants/breakpoints';
+import { $mainColor } from '../../../globalStyles/GlobalStyles';
 
 export const SettingsContainer = styled.div`
   position: fixed;
@@ -54,6 +55,7 @@ export const SettingsMain = styled.div`
     padding: 0;
     position: static;
     padding-top: 30px;
+    border-radius: 0px;
   }
 `;
 export const SettingsTitle = styled.span`
@@ -120,10 +122,11 @@ export const SettingsImagesBlock = styled.div`
     gap: 10px;
   }
 `;
-export const SettingsImg = styled.img`
+export const SettingsImg = styled.input`
   width: 90px;
   height: 90px;
   background: #f0f0f0;
+  border: none;
 
   @media screen and (max-width: ${$mobileWidth}) {
     width: 60px;
@@ -154,8 +157,8 @@ export const SettingsButton = styled.button`
   width: 154px;
   height: 50px;
   border-radius: 6px;
-  border: #D9D9D9;
-  background: #D9D9D9;
+  border: ${$mainColor};
+  background: ${$mainColor};
   color: #FFFFFF;
   cursor: pointer;
 
