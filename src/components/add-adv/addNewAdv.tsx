@@ -7,6 +7,9 @@ import {
 } from '../../services/adverts';
 import { useForm } from 'react-hook-form';
 import ImageForm from './ImageForm';
+import useGetWindowWidth from '../../hooks/WindowWidth';
+import { MOBILE } from '../../constants/breakpoints';
+import { Link } from 'react-router-dom';
 
 
 type Props = {
@@ -39,7 +42,6 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
     addAdvWithoutImg({ title, description, price })
       .unwrap()
       .then((response) => {
-        console.log('response', response);
         if (advImg) {
           for (let i = 0; i < advImg.length; i++) {
             addImgToAdv({ pk: response.id, image: advImg[i] })
@@ -51,6 +53,7 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
       });
   };
 
+  const screenWidth = useGetWindowWidth();
   return (
     <S.SettingsContainer>
       <S.SettingsMain>
@@ -59,7 +62,15 @@ const AddNewAdv = ({ setNewAdv }: Props) => {
             <S.CloseButtonImg src="/img/close.png" alt="close" />
           </S.CloseButton>
         </S.CloseBlock>
-        <S.SettingsTitle>Новое объявление</S.SettingsTitle>
+        <S.MobileSvg>
+          {screenWidth.width < MOBILE && (
+            <Link to="/profile">
+              <img src='/img/vector.svg'/>
+            </Link>
+          )}
+          <S.SettingsTitle>Новое объявление</S.SettingsTitle>
+        </S.MobileSvg>
+    
         <form onSubmit={handleSubmit(addNewAdv)}>
           <S.SettingsInfo>
             <div>

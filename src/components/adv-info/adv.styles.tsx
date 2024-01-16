@@ -10,7 +10,8 @@ export const Adv = styled.div`
 
   @media screen and (max-width: ${$mobileWidth}) {
     flex-direction: column;
-    gap: 20px;
+    gap: 0px;
+    padding-top: 60px;
   }
 `;
 
@@ -18,6 +19,7 @@ export const AdvImages = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  max-width: 480px;
 
   @media screen and (max-width: ${$mobileWidth}) {
   }
@@ -197,7 +199,6 @@ export const AdvSellerDate = styled.span`
   }
 `;
 export const ProductDescription = styled.div`
-  margin-top: 60px;
   margin-bottom: 117px;
 
   @media screen and (max-width: ${$mobileWidth}) {

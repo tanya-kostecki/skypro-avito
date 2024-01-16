@@ -28,7 +28,7 @@ export const ModalForm = styled.div`
   @media screen and (max-width: ${$mobileWidth}) {
     padding-left: 20px;
     padding-right: 20px;
-    top: calc(50% - (var(--modal-height) / 2));
+    
   }
 `;
 export const ModalLogo = styled.div`

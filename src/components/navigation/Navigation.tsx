@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import * as S from './navigation.styles';
-import { MAIN_PAGE } from '../../constants/pagesConst';
-import { NavLink } from 'react-router-dom';
+import { AUTH_PAGE, MAIN_PAGE } from '../../constants/pagesConst';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Page } from '../../types';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
@@ -39,6 +39,12 @@ const Navigation = ({ namePage }: Page) => {
   }, [filters]);
 
   const screenSize = useGetWindowWidth();
+  
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
 
   return (
     <S.SearchBlockContainer>
@@ -70,7 +76,11 @@ const Navigation = ({ namePage }: Page) => {
             <S.BackToMainBtn>Вернуться на главную</S.BackToMainBtn>
           </NavLink>
         )}
-        {screenSize.width <= MOBILE && <img src="/img/logout.svg" style={{ color: 'white'}}></img>}
+        {screenSize.width <= MOBILE && namePage !== AUTH_PAGE && (
+          <div onClick={logout}>
+            <img src="/img/logout.svg"></img>
+          </div>
+        )}
       </S.SearchBlock>
     </S.SearchBlockContainer>
   );

@@ -3,6 +3,8 @@ import * as S from './loader.styles'
 
 export const Loader = () => {
   return (
-    <S.Loading></S.Loading>
-  )
+    <S.LoaderDiv>
+      <S.Loading></S.Loading>
+    </S.LoaderDiv>
+  );
 }

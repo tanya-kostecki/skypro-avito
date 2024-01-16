@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { $mobileWidth, $tabletWidth } from '../../constants/breakpoints';
 
-export const ProfileIntoTitle = styled.h2`
+export const ProfileGreetingsContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  align-items: center;
+`
+export const ProfileIntoTitle = styled.span`
   color: #000;
   font-size: 40px;
   font-style: normal;
@@ -15,21 +20,7 @@ export const ProfileIntoTitle = styled.h2`
     font-size: 24px;
     font-weight: 500;
     text-align: left;
-
-    &:before {
-      content: '';
-      display: block;
-      width: 12px;
-      height: 12px;
-      background-color: transparent;
-      border-top: 2px solid #000000;
-      border-left: 2px solid #000000;
-      transform: rotate(-45deg);
-      position: absolute;
-      cursor: pointer;
-      top: 80px;
-      left: 40px;
-    }
+    margin-bottom: 4px;
   }
 `;
 
