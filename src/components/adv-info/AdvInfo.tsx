@@ -74,7 +74,9 @@ const AdvInfo = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <S.AdvContainer>
+        <>
+        {currentAdv ? (
+          <S.AdvContainer>
           <S.Adv>
             <S.AdvImages>
               {currentAdv?.images && <Gallery images={currentAdv?.images} />}
@@ -187,6 +189,8 @@ const AdvInfo = () => {
             />
           ) : null}
         </S.AdvContainer>
+        ) : <div>Page not found</div>}
+        </>
       )}
     </>
   );

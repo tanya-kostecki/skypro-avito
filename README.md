@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+Проект Skypro-Avito
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Дипломная работа на курсе “Веб-разработчик” в онлайн школе  Skypro. Сайт с объявлениями о продажах. Доступна мобильная версия и версия для рабочего стола
 
-## Available Scripts
+Описание
 
-In the project directory, you can run:
+Предусмотрена авторизация/ регистрация пользователя.
 
-### `npm start`
+Неавторизованный пользователь может:
+- просматривать список объявлений на главной странице;
+- просматривать страницы с объявлениями и комментарии к ним;
+- просматривать страницы с информацией о продавцах.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Для авторизованного пользователя дополнительно доступны следующие опции:
+- добавление нового объявления;
+- редактирование уже существующего объявления;
+- удаление раннее опубликованного объявления;
+- доступ к личному кабинету и редактирование личной информации;
+- возможность оставлять комментарии ко всем объявлениям.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Технологии
 
-### `npm test`
+Проект выполнен на React с использованием Typescript, Styled Components, Redux Toolkit, RTK Query, React Router, React-Hook-Form  и React-Image-Gallery
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Запуск проекта
 
-### `npm run build`
+Фронтенд
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Склонировать репозиторий 
+2. установить все зависимости (npm Install)
+3. Инициализировать приложение (npm start)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Бэкенд
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Для запуска бэкенда вам потребуется установить Docker.
+- Скачайте версию для своей операционной системы и запустите.
+- Далее следуйте инструкциям установщика.
+- После установки перезагрузите компьютер.
+- Запустите Docker с помощью ярлыка.
+- Скачайте архив и разархивируйте его.
+- Через терминал перейдите в разархивированную папку.
+- Запустите в терминале команду:docker-compose -f docker-compose-backend.yaml up -d
+- После первого выполнения команды все образы подтянуться, но могут не запуститься, в этом случае повторно выполните команду:docker-compose -f docker-compose-backend.yaml up -d
+- После этого бэкенд и Swagger будут доступны по адресу http://localhost:8090/
+- Чтобы остановить работу бэкенда выполните:docker-compose down
