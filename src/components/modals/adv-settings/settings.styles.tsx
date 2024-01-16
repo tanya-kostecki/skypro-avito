@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { $mobileWidth } from '../../../constants/breakpoints';
+import { $mainColor } from '../../../globalStyles/GlobalStyles';
 
 export const SettingsContainer = styled.div`
   position: fixed;
@@ -156,8 +157,8 @@ export const SettingsButton = styled.button`
   width: 154px;
   height: 50px;
   border-radius: 6px;
-  border: #D9D9D9;
-  background: #D9D9D9;
+  border: ${$mainColor};
+  background: ${$mainColor};
   color: #FFFFFF;
   cursor: pointer;
 

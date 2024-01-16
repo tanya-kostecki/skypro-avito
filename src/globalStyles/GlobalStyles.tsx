@@ -18,6 +18,12 @@ export const Container = styled.div`
 export const $mainColor = '#009EE4'
 
 export const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'),
+      url('../fonts/Roboto-Regular.ttf') format('ttf');
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -49,4 +55,4 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: 100%;
-`
+`;
